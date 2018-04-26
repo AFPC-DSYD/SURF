@@ -1,6 +1,7 @@
-# perstat
 
-> Perstat web app
+# StarsRaw
+
+> StarsRaw web app
 
 ## Build Setup
 
