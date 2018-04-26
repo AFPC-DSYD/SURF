@@ -85,10 +85,7 @@ module.exports = {
             Popper: ['popper.js', 'default']
         }),
         new webpack.ProvidePlugin({
-          d3: 'd3',
-          crossfilter: 'crossfilter2',
           'FileSaver': 'file-saver',
-          dc: 'dc',
           _: 'lodash',
           Promise: 'es6-promise-promise'
         })

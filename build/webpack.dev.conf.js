@@ -24,17 +24,9 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new webpack.DefinePlugin({
       'check_portal': '"SANE"',
-      'axios_url': '"http://localhost:5005/api"',
-      'axios_url_civ_inv': '"http://localhost:5005/api/civilian_inv_post"',
-      'axios_url_enl_promo': '"http://localhost:5005/api/enlisted_promo_post"',
-      'axios_url_enl_ret': '"http://localhost:5005/api/enlisted_ret_post"',
-      'axios_url_enl_man': '"http://localhost:5005/api/enlisted_post"',
-      'axios_url_off_pro': '"http://localhost:5005/api/officer_promo"',
-      'axios_url_off_man': '"http://localhost:5005/api/officer_post"',
-      'axios_url_join_spouse': '"http://localhost:5005/api/join_spouse"',  
-      'axios_url_off_tos': '"http://localhost:5005/api/officer_tos"',
-      'axios_url_enl_tos': '"http://localhost:5005/api/enlisted_tos"',
-      'axios_url_adman': '"http://localhost:5005/api/admanning_post"'
+      //'axios_url': '"http://localhost:5005/api"',
+      'axios_url': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'AXIOS_PROGRAM':'"/REN - Dashboard Home V1/makeHTML_collab"',
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),

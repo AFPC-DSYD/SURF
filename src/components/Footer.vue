@@ -23,23 +23,14 @@
                 <div class="col-md-4">
                     <h5 class="title mb-2 mt-3 font-bold">Links</h5>
                     <ul>
-                      <router-link class="footer-link" to="/" tag="li"><a class="nav-link">Home</a></router-link>
-                      <router-link class="footer-link" to="/tf_inv" tag="li"><a class="nav-link">TF Inventory</a></router-link>
-                      <router-link class="footer-link" to="/officer" tag="li"><a class="nav-link">Officer</a></router-link>
+                      <router-link class="footer-link" to="/" tag="li"><a class="nav-link">SURF</a></router-link>
+                      
                     
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5 class="title mb-2 mt-3 font-bold"> Additional Links</h5>
                     <ul>
-                      <router-link class="footer-link" to="/enlisted" tag="li"><a class="nav-link">Enlisted</a></router-link>
-                      <router-link class="footer-link" to="/civilian" tag="li"><a class="nav-link">Civilian</a></router-link>
-                      <router-link class="footer-link" to="/assignments" tag="li"><a class="nav-link">Assignments</a></router-link>
-                      <!-- 
-                      <router-link class="footer-link" to="/joint" tag="li"><a class="nav-link">Joint</a></router-link>
-                      <router-link class="footer-link" to="/care" tag="li"><a class="nav-link">Care</a></router-link>
-                      <router-link class="footer-link" to="/first_contact" tag="li"><a class="nav-link">First Contact</a></router-link>
-                      <router-link class="footer-link" to="/it" tag="li"><a class="nav-link">IT</a></router-link> -->
                     </ul>
                 </div>
                 <div class="footer-copyright">
