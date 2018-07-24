@@ -9,6 +9,11 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
           <router-link class="nav-item" to="/" tag="li" active-class="active" exact><a class="nav-link">SURF</a></router-link>
+          <router-link class="nav-item" to="/Surf_CIP" tag="li" active-class="active" exact><a class="nav-link">SURF_CIP</a></router-link>
+          <router-link class="nav-item" to="/LookUp" tag="li" active-class="active" exact><a class="nav-link">LookUp</a></router-link>
+          <router-link class="nav-item" to="/AD_Grab" tag="li" active-class="active" exact><a class="nav-link">AD_Grab</a></router-link>
+          <router-link class="nav-item" to="/Vml" tag="li" active-class="active" exact><a class="nav-link">Vml</a></router-link>
+          <!-- <router-link class="nav-item" to="/SurfFla" tag="li" active-class="active" exact><a class="nav-link">SurfFla</a></router-link> -->
         </ul>
       </div>
     </nav>

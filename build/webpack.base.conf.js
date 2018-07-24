@@ -67,6 +67,10 @@ module.exports = {
                 : utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
+      // {
+      //   test: /\.css$/,
+      //   use: [ 'style-loader', 'css-loader' ]
+      // },
       {
         test: /\.s[a|c]ss$/,
         loader: 'style!css!sass'
@@ -85,6 +89,7 @@ module.exports = {
             Popper: ['popper.js', 'default']
         }),
         new webpack.ProvidePlugin({
+          d3: 'd3',
           'FileSaver': 'file-saver',
           _: 'lodash',
           Promise: 'es6-promise-promise'

@@ -4,7 +4,7 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">SURF</h1>
+      <h1 class="col">AD GRAB</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
@@ -24,31 +24,7 @@
                 </label>
         </div>
     </div>
-    <div class="row">
-      <div id="radioSelect" class="col inline-form-group">
-               <label v-show="force=='officer'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="masked" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Masked </span>
-                </label>
-                <label v-show="force=='officer'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="unmasked" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Unmasked</span>
-                </label>
-                <label v-show="force=='enlisted'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="with" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">With Professional Specialty</span>
-                </label>
-                <label v-show="force=='enlisted'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="without" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Without Professional Specialty</span>
-                </label>
-        </div>
-    </div>
-    <p>This page is used to generate SURFs.</p>
+    <p>This page is used to append Columns from AD-Officer and AD-Enlisted datasets.</p>
     <br>
     <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
@@ -106,9 +82,18 @@
             <div style="margin-left:0;padding-left:0" class="col-4">
               <h2 >Step 3:Confirm SSNs</h2>
             </div>
-            <div class="col-3">
+            <!-- <div class="col-3">
               <input  type="text"  class="form-control" v-model="board" placeholder="Board Name">
+            </div> -->
+            <div class="col-5">
+              <input  type="text"  class="form-control" v-model="dins" placeholder="DINS Requested (Columns separated by spaces)">
             </div>
+          </div>
+          <div v-show="validatedDins > ''" class="row">
+            <h4 style='color:green'> Validated Dins: {{ validatedDins }} </h4>
+          </div>
+          <div v-show="badDins > ''" class="row">
+            <h4 style='color:red'> BAD Dins: {{ badDins }} </h4>
           </div>
           <div v-show="step3" class="row">
             <div class="col-12">
@@ -121,72 +106,28 @@
               <button v-if="numValidated > 0"
                   :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
                   title="Make sure the currect type of SURF is requested"
-                  @click="runSurf"> Run ({{numValidated}}) {{force}} {{typeString}} </button>
+                  @click="runSurf"> Merge ({{numValidated}}) with AD {{ force }} File </button>
             </div>
           </div>
           <div v-show="step3" class="row">
-            <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }}</h6>
-            <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
-            <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
+            <div class="col-7">
+              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }} 
+                <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
+                <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
+              </h6>
+            </div>
+            <div class="col-5">
+              <h6  style="margin-top:12px;margin-left:20px"> &nbsp; 
+              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
+              </h6>
+            </div>
           </div>
-          <!-- <div  class="row">
-            <div id="myGrid2"></div>
-          </div> -->
-          <!-- <div v-show="sentWarning" style="margin-top:10px;margin-bottom:10px;">
-            <el-tag closable type="warning" @close="sentWarning=false">Request Sent. Average response time is 30 seconds + 10 seconds per 100 SSN.</el-tag>
-          </div> -->
+      
           <div v-show="step3" class="row">
-            <div class='col-6'>
+            <div class='col-12'>
+              <v-app min-height="1vh"  >
 
-             <!--  <el-table
-                :data="slicedGrid2"
-                stripe
-                max-height="500"
-                :default-sort = "{prop: 'SSN_FORMAT', order: 'ascending'}"
-                style="width:100%;"
-                fit
-                >
-
-                <el-table-column
-                   prop="SSN"
-                   label="SSN"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="SSN_FORMAT"
-                   label="SSN_FORMAT"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="VALIDATED"
-                   label="VALIDATED"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                  label="Delete"
-                  min-width="90"
-                  >
-                  <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row )">Delete</el-button>
-                  </template>
-                </el-table-column>
-            </el-table> -->
-              <v-app>
               <v-dialog data-app="true" v-model="dialog" max-width="500px">
-                
-                <!-- <v-btn v-if="numGood > 0" color="success" dark class="mb-2" @click="runSurf"> Run ({{numGood}}) {{force}} {{typeString}} </v-btn> -->
                 <v-card>
                   <v-card-title >
                     <span class="headline">{{ formTitle }}</span>
@@ -207,6 +148,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+        
               <v-data-table
                 :headers="headersV"
                 :items="slicedGrid2"
@@ -215,10 +157,10 @@
                 min-height="1vh"  
               >
                 <tr slot="items" slot-scope="props">
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td>
-                  <td @click="" class="justify-center layout px-0">
+                  <td v-for="col in columnDins" class="my-2 text-xs-left"> {{ props.item[col] }} </td>
+                 <!--  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
+                  <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td> -->
+                  <td v-if="!step4" @click="" class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="editItem(props.item)">
                       <v-icon color="teal">edit</v-icon>
                     </v-btn>
@@ -228,15 +170,16 @@
                   </td>
                 </tr>
               </v-data-table>
+    
             </v-app>
             <div class="row">
-              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
+              
             </div>
             </div>
           </div>
           <div v-show="step3" class="row">
             <div class="col-6">
-              <a v-show="showButton" :href="href" :download="boardLink + ' ' + typeString + '.zip'" ref="surfButton"
+              <a v-show="showButton" :href="href" :download="boardLink + '.zip'" ref="surfButton"
                   class="btn btn-sm btn-info "> TEST </a> 
             </div>
           </div>
@@ -258,12 +201,17 @@ import JSZip from 'jszip'
 export default {
   data() {
       return {
+        dins: '',
+        validatedDins: '',
+        columnDins: ['SSN' , 'SSN_FORMAT','VALIDATED'],
+        badDins: '',
         asDate: 'Undetermined',
         sentWarning: false,
         loaded:true,
         showGrid: false,
         step3: false,
         step2: false,
+        step4: false,
         showButton: false,
         board: '',
         workbook: {
@@ -271,7 +219,7 @@ export default {
           SheetNames: [''],
         },
         force: 'officer', 
-        type: 'masked',
+        type: 'ad_grab',
         sheet_json: [],
         headers: [],
         selectedCol: -1,
@@ -312,7 +260,7 @@ export default {
       }
     },
     mounted(){
-      this.asDate = store.state.adoff;
+      this.asDate = store.state.AD;
       this.zip = new JSZip();
       this.folder = this.zip.folder('folder')
       // this.myGrid = canvasDatagrid();
@@ -336,9 +284,7 @@ export default {
         if (this.force == 'officer')
           forceString ='Officer'
         
-        if (this.board)
-          return this.board + ' ' + forceString;
-        else return 'SURF '  + forceString;
+        return 'AD '  + forceString;
       },
       myGridTop10(){
         var limit = this.myGrid.data.length
@@ -350,15 +296,7 @@ export default {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
       typeString:function(){
-        var test = this.type;
-        if (test == 'masked')
-          return 'Masked'
-        else if (test == 'unmasked')
-          return 'Unmasked'
-        else if (test == 'with')
-          return 'With Professional Specialty'
-        else if (test == 'without')
-          return 'Without Professional Specialty'
+        return 'AD ' + this.force; 
       },
       currentSheetName: function(){
         return this.workbook.SheetNames[this.currentSheetIndex]
@@ -378,6 +316,7 @@ export default {
               toReturn.push({
                 'text': d,
                 'value': d,
+                'align': 'left'
               })
           })
         }
@@ -444,8 +383,6 @@ export default {
           'board': this.board,
           'list': list.join(',')
         }
-
-      
 
         axios.post(
           axios_url_surf,
@@ -518,6 +455,32 @@ export default {
         }
         this.close()
       },
+      onReturnFinal(returned){
+          this.currentSort = 'SSN'
+          console.log(returned)
+          if (returned.data){
+            this.currentParts += 1
+            console.log(this.currentParts +  ' VS ' + this.totalParts)
+            var ret = returned.data;
+            this.columnDins = returned.dins.split(' ')
+            this.getHeaders()
+            console.log(ret)
+            if (this.currentParts <= 1){
+              console.log('SINGGGGGLEE')
+              this.myGrid2.data = ret
+            } else {
+              console.log('MULtttiiii')
+              this.myGrid2.data = this.myGrid2.data.concat(ret)
+            }
+            this.step3 = true
+          }
+                    console.log(this.myGrid2.data)
+          console.log(this.currentParts +  ' VS ' + this.totalParts)
+          if (this.currentParts >= this.totalParts)
+            this.loaded=true;
+          console.log('SHOW graph: ' + !this.loaded)
+          console.log('test----')
+      },
       onReturn(returned){
           this.currentSort = 'VALIDATED'
           var statusFormat = {
@@ -526,6 +489,7 @@ export default {
             '8':'ERROR: DUPLICATE',
             '9':'ERROR',
           }
+          console.log(returned)
           if (returned.data){
             this.currentParts += 1
             var ret = returned.data;
@@ -535,9 +499,13 @@ export default {
             var parsed = this.parse(ret, 'SSN', 2)
             if (this.currentParts <= 1){
               this.myGrid2.data = parsed
-              this.numValidated = this.numGood;
+              this.numValidated = this.numGood
+              this.validatedDins = returned.goodDins
+              this.badDins = returned.badDins
             }
             else {
+              this.validatedDins =  returned.goodDins
+              this.badDins = this.badDins + returned.badDins;
               this.myGrid2.data = this.sortByCol(this.myGrid2.data.concat(parsed))
               this.numValidated += this.numGood;
             }
@@ -551,6 +519,7 @@ export default {
       },
       validate(){
         this.loaded=false;
+        this.validatedDins = '';
         this.currentSort = 'SSN_FORMAT'
         var list = []
         var getList = this.parse(this.ssnList, 'SSN', 1)
@@ -566,12 +535,13 @@ export default {
           var querystring = require('querystring');
           const formData = {
             '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-            'nPage':"validate",
+            'nPage':"validateAD",
+            'dins' : this.dins,
             'force':this.force,
             'type' : this.type,
             'list': list.join(',')
           }
-          axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
+          axios.post(axios_ad_grab_validate, querystring.stringify(formData)).then(response => {
               this.onReturn(response.data)
           }).catch(function (error) {
               console.log(error.response);
@@ -602,7 +572,8 @@ export default {
           var querystring = require('querystring');
             var formData = {
               '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-              'nPage':"validate",
+              'nPage':"validateAD",
+              'dins' : this.dins,
               'force':this.force,
               'type' : this.type,
               'list': splitList.join(','),
@@ -610,7 +581,7 @@ export default {
               'max' : nums
             }
           console.log(formData)
-          axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
+          axios.post(axios_ad_grab_validate, querystring.stringify(formData)).then(response => {
               this.onReturn(response.data)
           }).catch(function (error) {
               console.log(error.response);
@@ -619,53 +590,40 @@ export default {
         }
       },
       runSurf(){
+        this.step4 = true
         this.loaded=false;
-        var partLen = 200;
+        var partLen = 500;
         this.sentWarning = true;
         var list = []
-        var getList = this.parse(this.ssnList, 'SSN', 1)
+        var getList = this.parse(this.myGrid2.data, 'SSN', 1)
         getList.forEach((d)=>{
           if (d.SSN_FORMAT)
             list.push(d.SSN)
         })
+        console.log(this.myGrid2.data)
+        console.log(this.ssnList)
+        console.log(getList)
+        console.log(list)
         console.log('len: ' + list.length)
         if (list.length <= partLen){
+          this.totalParts = 0;
+          this.currentParts = 0;
           console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
               '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-              'nPage':"runSurf2",
+              'nPage':"runAD",
+              'dins' :this.validatedDins,
               'force':this.force,
               'type' : this.type,
               'board': this.board,
               'list': list.join(',')
             }
-           axios.get(axios_url_surf + '?' + querystring.stringify(formData), {
-                  responseType: 'arraybuffer',
-                  headers: {
-                    'Accept': 'application/zip'
-                  }
-            }).then(response => {
-                console.log('MADE IT HERE - Single Pull')
-                console.log(response)
-                console.log(response.data);
-
-                function str2bytes (str) {
-                  var bytes = new Uint8Array(str.length);
-                  for (var i=0; i<str.length; i++) {
-                      bytes[i] = str.charCodeAt(i);
-                  }
-                  return bytes;
-                }
-
-                const blob = new Blob([response.data], {
-                  type: 'application/zip',
-                });
-
-                console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
-                this.loaded=true;
-            });     
+           axios.post(axios_ad_grab_final, querystring.stringify(formData)).then(response => {
+              this.onReturnFinal(response.data)
+          }).catch(function (error) {
+              console.log(error.response);
+          });
         } else {
           console.log('MULTI PART')
           var nums = Math.floor(list.length / partLen);
@@ -693,7 +651,8 @@ export default {
           var querystring = require('querystring');
             var formData = {
               '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-              'nPage':"runSurf",
+              'nPage':"runAD",
+              'dins' :this.validatedDins,
               'force':this.force,
               'type' : this.type,
               'board': this.board,
@@ -702,60 +661,11 @@ export default {
               'max': nums
             }
           console.log(formData)
-            axios.get(axios_url_surf + '?' + querystring.stringify(formData), {
-                  responseType: 'arraybuffer',
-                  headers: {
-                    'Accept': 'application/zip'
-                  }
-            }).then(response => {
-                this.currentParts+=1
-                console.log('MADE IT HERE - ' + this.currentParts + ' of ' + this.totalParts)
-                console.log(response)
-                console.log(response.data);
-
-                
-                const blob = new Blob([response.data], {
-                  type: 'application/zip',
-                });
-
-                console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + ' ' + this.currentParts + ' of ' + this.totalParts + ' .zip');
-
-                if (this.currentParts >= this.totalParts)
-                  this.loaded=true;
-                // this.zip.loadAsync(blob)
-                // .then(function (zippedFile) {
-                //     console.log(zippedFile)
-                //     zippedFile.forEach(function (relativePath, fileEntry) {
-                //       console.log(relativePath)
-                //       console.log(fileEntry)
-                //       this.folder.file(relativePath, fileEntry)
-                //     });
-                // })
-                // .then(function(){
-                //   console.log(this.folder)
-                //   if (this.currentParts >= this.totalParts){
-                //     console.log('Last step, EXPORT')
-                //     this.folder.generateAsync({type:"blob"})
-                //     .then(function (content) {
-                //         console.log('MADE BLOB, filesaver SAVE')
-                //         console.log(' WHAt : ' +  content)
-                //         // see FileSaver.js
-                //         FileSaver.saveAs(content, this.boardLink + ' ' + this.typeString + '.zip');
-                //     });
-                //   }
-                // })
-
-                // this.zip.loadAsync(response.data).then(function (zip) {
-                //   Object.keys(zip.files).forEach(function (filename) {
-                //     this.folder.loadAsync(zip.files[filename], 
-                //     zip.files[filename].async('string').then(function (fileData) {
-                //       console.log(fileData) // These are your file contents      
-                //     })
-                //   })
-                // })
-                //FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
-            });  
+            axios.post(axios_ad_grab_final , querystring.stringify(formData)).then(response => {
+              this.onReturnFinal(response.data)
+            }).catch(function (error) {
+                console.log(error.response);
+            });
           }
         }
       },
@@ -800,6 +710,12 @@ export default {
                 'SSN_FORMAT': isNum
               })
             } else if (option == 2){
+              this.ssnList.push({
+                'SSN': clean,
+                'SSN_FORMAT': isNum,
+                'VALIDATED': status,
+              })
+            } else if (option == 3){
               this.ssnList.push({
                 'SSN': clean,
                 'SSN_FORMAT': isNum,
@@ -888,7 +804,7 @@ export default {
     },
     downloadTable(){
       var blob = new Blob([d3.csv.format(this.myGrid2.data)], {type: "text/csv;charset=utf-8"});
-      FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.csv');
+      FileSaver.saveAs(blob, this.boardLink + '.csv');
     },
     /** PARSING and DRAGDROP **/
     handleDrop(e) {
@@ -926,18 +842,19 @@ export default {
         };
         reader.readAsArrayBuffer(f);
       }
-      this.headersV = [
-        {
-          text: 'SSN',
-          align: 'left',
-          value: 'SSN'
-        },
-        { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
-        ,
-        { text: 'VALIDATED', value: 'VALIDATED' }
-      ]
+      this.getHeaders()
       this.showGrid = true
       this.step2 = true
+    },
+    getHeaders(){
+        var obj = []
+        this.columnDins.forEach((d)=>{
+          obj.push({
+            'text': d,
+            'value': d
+          })
+        })
+        this.headersV = obj
     },
     handleDragover(e) {
       e.stopPropagation();
@@ -957,6 +874,7 @@ export default {
   },
   beforeUpdate() {
     console.log("beforeupdate")
+    
   },
 }
 </script>

@@ -39,12 +39,12 @@
                 <label v-show="force=='enlisted'" class="custom-control custom-radio" >
                     <input class="custom-control-input" name="type" type="radio" value="with" v-model="type">
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">With Professional Specialty</span>
+                    <span class="custom-control-description">With Proffesional Speciality</span>
                 </label>
                 <label v-show="force=='enlisted'" class="custom-control custom-radio" >
                     <input class="custom-control-input" name="type" type="radio" value="without" v-model="type">
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Without Professional Specialty</span>
+                    <span class="custom-control-description">Without Proffesional Speciality</span>
                 </label>
         </div>
     </div>
@@ -122,73 +122,23 @@
                   :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
                   title="Make sure the currect type of SURF is requested"
                   @click="runSurf"> Run ({{numValidated}}) {{force}} {{typeString}} </button>
-            </div>
           </div>
-          <div v-show="step3" class="row">
-            <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }}</h6>
-            <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
-            <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
           </div>
+
           <!-- <div  class="row">
             <div id="myGrid2"></div>
           </div> -->
-          <!-- <div v-show="sentWarning" style="margin-top:10px;margin-bottom:10px;">
+          <div v-show="sentWarning" style="margin-top:10px;margin-bottom:10px;">
             <el-tag closable type="warning" @close="sentWarning=false">Request Sent. Average response time is 30 seconds + 10 seconds per 100 SSN.</el-tag>
-          </div> -->
+          </div>
           <div v-show="step3" class="row">
             <div class='col-6'>
-
-             <!--  <el-table
-                :data="slicedGrid2"
-                stripe
-                max-height="500"
-                :default-sort = "{prop: 'SSN_FORMAT', order: 'ascending'}"
-                style="width:100%;"
-                fit
-                >
-
-                <el-table-column
-                   prop="SSN"
-                   label="SSN"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="SSN_FORMAT"
-                   label="SSN_FORMAT"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="VALIDATED"
-                   label="VALIDATED"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                  label="Delete"
-                  min-width="90"
-                  >
-                  <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row )">Delete</el-button>
-                  </template>
-                </el-table-column>
-            </el-table> -->
               <v-app>
               <v-dialog data-app="true" v-model="dialog" max-width="500px">
                 
                 <!-- <v-btn v-if="numGood > 0" color="success" dark class="mb-2" @click="runSurf"> Run ({{numGood}}) {{force}} {{typeString}} </v-btn> -->
                 <v-card>
-                  <v-card-title >
+                  <v-card-title>
                     <span class="headline">{{ formTitle }}</span>
                   </v-card-title>
                   <v-card-text>
@@ -209,15 +159,14 @@
               </v-dialog>
               <v-data-table
                 :headers="headersV"
-                :items="slicedGrid2"
+                :items="myGrid2.data"
                 hide-actions
                 class="elevation-1"
-                min-height="1vh"  
               >
                 <tr slot="items" slot-scope="props">
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td>
+                  <td @click="" class="text-xs-right">{{ props.item.SSN }}</td>
+                  <td @click="" class="text-xs-right">{{ props.item.SSN_FORMAT }}</td>
+                  <td @click="" class="text-xs-right">{{ props.item.VALIDATED }}</td>
                   <td @click="" class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="editItem(props.item)">
                       <v-icon color="teal">edit</v-icon>
@@ -228,10 +177,8 @@
                   </td>
                 </tr>
               </v-data-table>
+            
             </v-app>
-            <div class="row">
-              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
-            </div>
             </div>
           </div>
           <div v-show="step3" class="row">
@@ -253,7 +200,6 @@ import XLSX from 'xlsx'
 import axios from 'axios'
 import loader from './Loader'
 import { store } from '@/store/store'
-import JSZip from 'jszip'
 
 export default {
   data() {
@@ -282,10 +228,6 @@ export default {
         myGrid2: {
           data: [''],
         },
-        pageSizeGrid2: 10,
-        currentPageGrid2: 1,
-        currentSort: 'SSN_FORMAT',
-        showBad: false,
         dialog: false,
         editedIndex: -1,
         editedItem: {
@@ -300,45 +242,24 @@ export default {
         numGood: 0,
         numBad: 0,
         numValidated: 0,
-        totalParts: 0,
-        currentParts: 0,
         state: {
           headers: [''],
           tickets: [''],
           myGrid:  [],
         },
-        zip: {},
-        folder: {},
       }
     },
     mounted(){
       this.asDate = store.state.adoff;
-      this.zip = new JSZip();
-      this.folder = this.zip.folder('folder')
-      // this.myGrid = canvasDatagrid();
-      // document.getElementById('myGrid').appendChild(this.myGrid)
-      // this.myGrid2 = canvasDatagrid();
-      // document.getElementById('myGrid2').appendChild(this.myGrid2)
     },
     components:{
       loader
     },
     computed:{
-      slicedGrid2(){
-        return this.myGrid2.data.filter((row, index) => {
-          let start = (this.currentPageGrid2-1)*this.pageSizeGrid2;
-          let end = this.currentPageGrid2*this.pageSizeGrid2;
-          if(index >= start && index < end) return true;
-        });
-      },
       boardLink(){
-        var forceString = 'Enlisted'
-        if (this.force == 'officer')
-          forceString ='Officer'
-        
         if (this.board)
-          return this.board + ' ' + forceString;
-        else return 'SURF '  + forceString;
+          return this.board;
+        else return 'SURF';
       },
       myGridTop10(){
         var limit = this.myGrid.data.length
@@ -356,9 +277,9 @@ export default {
         else if (test == 'unmasked')
           return 'Unmasked'
         else if (test == 'with')
-          return 'With Professional Specialty'
+          return 'With Proffesional Speciality'
         else if (test == 'without')
-          return 'Without Professional Specialty'
+          return 'Without Proffesional Speciality'
       },
       currentSheetName: function(){
         return this.workbook.SheetNames[this.currentSheetIndex]
@@ -420,12 +341,6 @@ export default {
       },
     },
     methods: {
-      nextPage:function() {
-        if((this.currentPageGrid2*this.pageSizeGrid2) < this.myGrid2.data.length) this.currentPageGrid2++;
-      },
-      prevPage:function() {
-        if(this.currentPageGrid2 > 1) this.currentPageGrid2--;
-      },
       downlaodZip(){
         this.loaded=false;
         var list = []
@@ -474,15 +389,6 @@ export default {
         //     this.loaded=true;
         // });
       },
-      sortByCol(arr){
-        return arr.sort((a,b) => {
-          let modifier = 1;
-          //if(this.currentSortDir === 'desc') modifier = -1;
-          if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-          if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-          return 0;
-        })
-      },
       editItem (item) {
         this.editedIndex = this.myGrid2.data.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -519,108 +425,48 @@ export default {
         this.close()
       },
       onReturn(returned){
-          this.currentSort = 'VALIDATED'
           var statusFormat = {
             '1':'GOOD',
-            '7':'ERROR: NOT FOUND ON FILE',
-            '8':'ERROR: DUPLICATE',
+            '7':'NOT FOUND ON FILE',
+            '8':'DUPLICATE',
             '9':'ERROR',
           }
           if (returned.data){
-            this.currentParts += 1
-            var ret = returned.data;
+            var ret = returned .data;
             ret.forEach((record)=>{
               record.STATUS = statusFormat[record.STATUS]
             })
             var parsed = this.parse(ret, 'SSN', 2)
-            if (this.currentParts <= 1){
-              this.myGrid2.data = parsed
-              this.numValidated = this.numGood;
-            }
-            else {
-              this.myGrid2.data = this.sortByCol(this.myGrid2.data.concat(parsed))
-              this.numValidated += this.numGood;
-            }
-            this.step3 = true
+          this.myGrid2.data = parsed
+          this.step3 = true
+          this.numValidated = this.numGood;
           }
-          console.log(this.currentParts +  ' VS ' + this.totalParts)
-          if (this.currentParts >= this.totalParts)
-            this.loaded=true;
-          console.log('SHOW graph: ' + !this.loaded)
-          console.log('test----')
+          this.loaded=true;
       },
       validate(){
         this.loaded=false;
-        this.currentSort = 'SSN_FORMAT'
         var list = []
         var getList = this.parse(this.ssnList, 'SSN', 1)
         getList.forEach((d)=>{
           if (d.SSN_FORMAT)
             list.push(d.SSN)
         })
-        console.log('len: ' + list.length)
-        if (list.length <= 500){
-          console.log('SINGLE RUN')
-          this.totalParts = 0;
-          this.currentParts = 0;
-          var querystring = require('querystring');
-          const formData = {
-            '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-            'nPage':"validate",
-            'force':this.force,
-            'type' : this.type,
-            'list': list.join(',')
-          }
-          axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
-              this.onReturn(response.data)
-          }).catch(function (error) {
-              console.log(error.response);
-          });
-        } else {
-          console.log('MULTI RUN')
-          var nums = Math.floor(list.length / 500);
-          var remaining = list.length % 500;
-          console.log('remaining: ' + remaining)
-          if (remaining > 0)
-            nums += 1
-          console.log('nums: ' + nums)
-          this.totalParts = nums;
-          this.currentParts = 0;
-          var splitList = []
-          for (var i=1; i<= nums;i++){
-            if (i != nums){
-              splitList = list.slice(500 * (i - 1), 500 * i)
-              console.log('start: ' + 500 * (i - 1))
-              console.log('end: ' + 500 * i)
-            }
-            else {
-              splitList = list.slice(500 * (i - 1), 500 * (i - 1) + remaining)
-              console.log('start: ' + 500 * (i - 1))
-              console.log('end: ' + (500 * (i - 1) + remaining))
-            }
-          console.log('splitList Length: ' + splitList.length)
-          var querystring = require('querystring');
-            var formData = {
+        var querystring = require('querystring');
+            const formData = {
               '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
               'nPage':"validate",
               'force':this.force,
               'type' : this.type,
-              'list': splitList.join(','),
-              'part': i,
-              'max' : nums
+              'list': list.join(',')
             }
-          console.log(formData)
-          axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
-              this.onReturn(response.data)
-          }).catch(function (error) {
-              console.log(error.response);
-          });
-        }
-        }
+      axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
+                this.onReturn(response.data)
+            }).catch(function (error) {
+                console.log(error.response);
+                this.loaded=true;
+            });
       },
       runSurf(){
-        this.loaded=false;
-        var partLen = 200;
         this.sentWarning = true;
         var list = []
         var getList = this.parse(this.ssnList, 'SSN', 1)
@@ -628,136 +474,20 @@ export default {
           if (d.SSN_FORMAT)
             list.push(d.SSN)
         })
-        console.log('len: ' + list.length)
-        if (list.length <= partLen){
-          console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
-              'nPage':"runSurf2",
-              'force':this.force,
-              'type' : this.type,
-              'board': this.board,
-              'list': list.join(',')
-            }
-           axios.get(axios_url_surf + '?' + querystring.stringify(formData), {
-                  responseType: 'arraybuffer',
-                  headers: {
-                    'Accept': 'application/zip'
-                  }
-            }).then(response => {
-                console.log('MADE IT HERE - Single Pull')
-                console.log(response)
-                console.log(response.data);
-
-                function str2bytes (str) {
-                  var bytes = new Uint8Array(str.length);
-                  for (var i=0; i<str.length; i++) {
-                      bytes[i] = str.charCodeAt(i);
-                  }
-                  return bytes;
-                }
-
-                const blob = new Blob([response.data], {
-                  type: 'application/zip',
-                });
-
-                console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
-                this.loaded=true;
-            });     
-        } else {
-          console.log('MULTI PART')
-          var nums = Math.floor(list.length / partLen);
-          var remaining = list.length % partLen;
-          console.log('remaining: ' + remaining)
-          if (remaining > 0)
-            nums += 1
-          this.totalParts = nums;
-          this.currentParts = 0;
-          console.log('nums: ' + nums)
-          var splitList = []
-          for (var i=1; i<= nums;i++){
-
-            if (i != nums){
-              splitList = list.slice(partLen * (i - 1), partLen * i)
-              console.log('start: ' + partLen * (i - 1))
-              console.log('end: ' + partLen * i)
-            }
-            else {
-              splitList = list.slice(partLen * (i - 1), partLen * (i - 1) + remaining)
-              console.log('start: ' + partLen * (i - 1))
-              console.log('end: ' + (partLen * (i - 1) + remaining))
-            }
-          console.log('splitList Length: ' + splitList.length)
-          var querystring = require('querystring');
-            var formData = {
               '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
               'nPage':"runSurf",
               'force':this.force,
               'type' : this.type,
               'board': this.board,
-              'list': splitList.join(','),
-              'part': i,
-              'max': nums
+              'list': list.join(',')
             }
-          console.log(formData)
-            axios.get(axios_url_surf + '?' + querystring.stringify(formData), {
-                  responseType: 'arraybuffer',
-                  headers: {
-                    'Accept': 'application/zip'
-                  }
-            }).then(response => {
-                this.currentParts+=1
-                console.log('MADE IT HERE - ' + this.currentParts + ' of ' + this.totalParts)
-                console.log(response)
-                console.log(response.data);
-
-                
-                const blob = new Blob([response.data], {
-                  type: 'application/zip',
-                });
-
-                console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + ' ' + this.currentParts + ' of ' + this.totalParts + ' .zip');
-
-                if (this.currentParts >= this.totalParts)
-                  this.loaded=true;
-                // this.zip.loadAsync(blob)
-                // .then(function (zippedFile) {
-                //     console.log(zippedFile)
-                //     zippedFile.forEach(function (relativePath, fileEntry) {
-                //       console.log(relativePath)
-                //       console.log(fileEntry)
-                //       this.folder.file(relativePath, fileEntry)
-                //     });
-                // })
-                // .then(function(){
-                //   console.log(this.folder)
-                //   if (this.currentParts >= this.totalParts){
-                //     console.log('Last step, EXPORT')
-                //     this.folder.generateAsync({type:"blob"})
-                //     .then(function (content) {
-                //         console.log('MADE BLOB, filesaver SAVE')
-                //         console.log(' WHAt : ' +  content)
-                //         // see FileSaver.js
-                //         FileSaver.saveAs(content, this.boardLink + ' ' + this.typeString + '.zip');
-                //     });
-                //   }
-                // })
-
-                // this.zip.loadAsync(response.data).then(function (zip) {
-                //   Object.keys(zip.files).forEach(function (filename) {
-                //     this.folder.loadAsync(zip.files[filename], 
-                //     zip.files[filename].async('string').then(function (fileData) {
-                //       console.log(fileData) // These are your file contents      
-                //     })
-                //   })
-                // })
-                //FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
-            });  
-          }
-        }
+            this.href = axios_url_surf + '?' + querystring.stringify(formData);
+            const elem = this.$refs.surfButton
+            setTimeout(function() {
+                elem.click()
+            },500)
       },
       parse(data, select, option){
         this.ssnList = []
@@ -811,7 +541,7 @@ export default {
         this.numGood = numGood
         this.numBad = numBad
 
-        return this.sortByCol(this.ssnList);
+        return this.ssnList;
       },
       processSSN(){
         var select = this.columns[this.selectedCol]
@@ -886,13 +616,8 @@ export default {
       });
       return result;
     },
-    downloadTable(){
-      var blob = new Blob([d3.csv.format(this.myGrid2.data)], {type: "text/csv;charset=utf-8"});
-      FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.csv');
-    },
     /** PARSING and DRAGDROP **/
     handleDrop(e) {
-      this.currentSort = 'SSN_FORMAT'
       e.stopPropagation()
       e.preventDefault()
       console.log("DROPPED");
@@ -943,20 +668,12 @@ export default {
       e.stopPropagation();
       e.preventDefault();
       e.dataTransfer.dropEffect = 'copy';
-    },
-    handleDelete(index, row) {
-      console.log(index)
-      var toDelete = index 
-      if (this.currentPageGrid2>1)
-        toDelete = index + (this.currentPageGrid2-1) * this.pageSizeGrid2
-      console.log(toDelete)
-      if (index !== undefined && index >=0){
-        this.myGrid2.data.splice(toDelete, 1);
-      }
     }
   },
   beforeUpdate() {
     console.log("beforeupdate")
+    console.log(this.headersV1)
+    console.log(this.columns)
   },
 }
 </script>

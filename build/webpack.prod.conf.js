@@ -35,9 +35,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       
       //PROD BUILD - HIS MUST be run for PROD DEPLOYMENT
-      //'check_portal': '"INSANE"',
-      'axios_url': '"https://starsraw.afpc.randolph.af.mil/"',
-      'AXIOS_PROGRAM':'"/REN - Dashboard Home V1/makeHTML_collab"',   
+      'check_portal': '"INSANE"',
+      'axios_url_surf': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_url_vml': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_validate': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_final': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'AXIOS_PROGRAM':'"/REN - Dashboard Home V1/makeHTML"',   
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new webpack.optimize.UglifyJsPlugin({

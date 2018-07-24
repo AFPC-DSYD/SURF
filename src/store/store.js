@@ -8,5 +8,10 @@ export const store =  new Vuex.Store({
 		asDate: 'Undetermined',
 		resetAfsc: false,
 		startAfsc:false,
+		sanity: 'SANE',
+		adoff:'Undetermined',
+		adenl:'Undetermined',
+		AD:'Undetermined',
+		lookup:'Undetermined',
 	}
 });

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid grey lighten-5">
+    <div v-show="showSite" class="container-fluid grey lighten-5">
         <app-navbar></app-navbar>
         <div class="pt-5 mt-3" style="min-height: 800px;">
             <router-view></router-view>
@@ -12,10 +12,19 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { store } from '@/store/store'
+
 export default {
     components: {
         'app-navbar': Navbar,
         'app-footer': Footer
+    }, 
+    computed: {
+        showSite(){
+            if (store.state.sanity == check_portal)
+                return true;
+            else return false;
+        }
     }
 }
 </script>

@@ -24,7 +24,7 @@
                     <h5 class="title mb-2 mt-3 font-bold">Links</h5>
                     <ul>
                       <router-link class="footer-link" to="/" tag="li"><a class="nav-link">SURF</a></router-link>
-                      
+                      <router-link class="footer-link" to="/LookUp" tag="li"><a class="nav-link">LookUp</a></router-link>
                     
                     </ul>
                 </div>

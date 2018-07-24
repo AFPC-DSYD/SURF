@@ -4,7 +4,7 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">SURF</h1>
+      <h1 class="col">SURF CIP</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
@@ -21,30 +21,6 @@
                     <input class="custom-control-input" name="force" type="radio" value="enlisted" v-model="force">
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">Enlisted</span>
-                </label>
-        </div>
-    </div>
-    <div class="row">
-      <div id="radioSelect" class="col inline-form-group">
-               <label v-show="force=='officer'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="masked" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Masked </span>
-                </label>
-                <label v-show="force=='officer'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="unmasked" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Unmasked</span>
-                </label>
-                <label v-show="force=='enlisted'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="with" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">With Professional Specialty</span>
-                </label>
-                <label v-show="force=='enlisted'" class="custom-control custom-radio" >
-                    <input class="custom-control-input" name="type" type="radio" value="without" v-model="type">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Without Professional Specialty</span>
                 </label>
         </div>
     </div>
@@ -271,7 +247,7 @@ export default {
           SheetNames: [''],
         },
         force: 'officer', 
-        type: 'masked',
+        type: 'cip',
         sheet_json: [],
         headers: [],
         selectedCol: -1,
@@ -957,6 +933,8 @@ export default {
   },
   beforeUpdate() {
     console.log("beforeupdate")
+    console.log(this.headersV1)
+    console.log(this.columns)
   },
 }
 </script>
