@@ -623,7 +623,8 @@ export default {
         var partLen = 200;
         this.sentWarning = true;
         var list = []
-        var getList = this.parse(this.ssnList, 'SSN', 1)
+        console.log(this.myGrid2.data.length)
+        var getList = this.parse(this.myGrid2.data, 'SSN', 1)
         getList.forEach((d)=>{
           if (d.SSN_FORMAT)
             list.push(d.SSN)
