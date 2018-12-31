@@ -364,7 +364,7 @@ export default {
         return this.workbook.SheetNames[this.currentSheetIndex]
       },
       worksheet: function(){
-        return  this.workbook.Sheets[this.currentSheetName];
+        return  this.workbook.Sheets[this.currentSheetName]
       }, 
       columns: function(){
         return this.headers[this.currentSheetIndex]
@@ -397,16 +397,9 @@ export default {
         this.showGrid = true
       },
       currentSheetIndex: function(val){
-        this.showGrid = true
-        this.myGrid.data = this.sheet_json[this.currentSheetIndex];
-        // this.headersV1 = [];
-        // this.columns.forEach((d)=>{
-        //   this.headersV1.push({
-        //     'text': d,
-        //     'value': d,
-        //   })
-        // })
-        this.selectedCol = -1;  
+        this.showGrid = true        
+        this.myGrid.data = this.sheet_json[this.currentSheetIndex]
+        //this.selectedCol = -1 
       },
       force: function(val){
         if (val =='officer'){
@@ -823,7 +816,6 @@ export default {
           select = '__EMPTY_' + numb
         }
         var parsed = this.parse(this.sheet_json[this.currentSheetIndex], select, 1)
-        //console.log(this.sheet_json[this.currentSheetIndex])
         this.myGrid2.data = parsed
         this.step3 = true
         this.showGrid = false
@@ -832,8 +824,9 @@ export default {
         this.selectedCol = val
       },
       changeSheet(num){
+        //var num = Object.keys(this.workbook.Sheets).indexOf(this.workbook.SheetNames[num])
+        console.log("num: "+num);        
         this.currentSheetIndex = num
-        //this.myGrid.data = XLSX.utils.sheet_to_json(this.worksheet)
       },
       onFileChange(e) {
           var files = e.target.files || e.dataTransfer.files;
@@ -873,17 +866,21 @@ export default {
     },
     fixdata(data) {
       var o = "", l = 0, w = 10240;
-      for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
-      o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-      return o;
+      for(; l<data.byteLength/w; ++l) {
+        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
+        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+        return o;
+      }
     },
     workbook_to_json(workbook) {
       var result = {};
       workbook.SheetNames.forEach(function(sheetName) {
         var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        if(roa.length > 0){
+        
+        if(roa.length ^""){
           result[sheetName] = roa;
         }
+
       });
       return result;
     },
@@ -896,34 +893,48 @@ export default {
       this.currentSort = 'SSN_FORMAT'
       e.stopPropagation()
       e.preventDefault()
-      console.log("DROPPED");
       var files = e.dataTransfer.files, i, f;
       for (i = 0, f = files[i]; i != files.length; ++i) {
         var reader = new FileReader(),
             name = f.name;
+        console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
+        
         reader.onload = (e)=>{
-            var results, 
-                data = e.target.result, 
-                fixedData = this.fixdata(data);
-            this.workbook=XLSX.read(btoa(fixedData), {type: 'base64'}) 
-            this.sheet_json = []
-            this.headers = []
-            //this.selectedCol = 1;
-            for (var d in this.workbook.Sheets){
-              var sheet = this.workbook.Sheets[d]
-              var page = XLSX.utils.sheet_to_json(sheet)
+          //var results, 
+          var data = e.target.result;
+          var fixedData = this.fixdata(data);
+          // cant use readFile, since it is only used in SERVER environments
+          // use XLSX.read to read array buffer and convert to base64   
+          this.workbook=XLSX.read(btoa(fixedData), {type: 'base64'});
+          this.sheet_json = [].sort();
+          this.headers = []
+                 
+          this.workbook.SheetNames.sort();
+          let tabOrder = Object.values(this.workbook.SheetNames);//name of all tabs
+          console.log("tabOrder: "+tabOrder); //name of sorted tabs
+          
+          Object.keys(this.workbook.Sheets).sort();
+          let sheSorted = Object.keys(this.workbook.Sheets).sort();
+          console.log("sheSorted: "+sheSorted);
+          
+          for (let d in sheSorted) {
+          //for (var d in this.workbook.Sheets) {
+            console.log("d: "+d);
+            console.log("tabOrder: "+tabOrder[d]); //name of tab - not sorted  b/c of source workbook.Sheets
 
-              this.sheet_json.push(page)
-              this.headers.push(this.get_header_row(sheet))
-            }
-          // this.myGrid = canvasDatagrid();
+            var sheet = this.workbook.Sheets[tabOrder[d]];  
+            //var sheet = Object.values(this.workbook.Sheets).indexOf(Object.values(this.workbook.SheetNames));           
+            console.log("this.workbook.Sheets second time: "+Object.values(sheet).values);//Excel cell range A1:B4
+
+            var page = XLSX.utils.sheet_to_json(sheet); //returns the array for each page
+            console.log("Page: "+Object.keys(page));
+            
+            this.sheet_json.push(page);
+            this.headers.push(this.get_header_row(sheet));
+          }         
           var div = document.getElementById('myGrid');
           this.myGrid.data = this.sheet_json[this.currentSheetIndex];
           
-          // while(div.firstChild){
-          //     div.removeChild(div.firstChild);
-          // }
-          // document.getElementById('myGrid').appendChild(this.myGrid)
         };
         reader.readAsArrayBuffer(f);
       }
