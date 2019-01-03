@@ -6,6 +6,7 @@ rm ./dist/static/*.png;
 rm ./dist/static/*.jpg;
 rm ./dist/static/*.JPG;
 cd ./dist;
+git pull origin master;
 git add . ;
 git commit -m "`(date +%F%T)`";
 git push origin master;
