@@ -1,8 +1,8 @@
 #!/bin/bash
 #begin by resetting ps_prod working directory to last commit state
-#git -C ../SURF_PROD reset --hard;
+git -C ../SURF_PROD reset --hard;
 #git pull to sync with remote
-#git -C ../SURF_PROD pull origin master;
+git -C ../SURF_PROD pull origin master;
 git pull origin master
 #build for prod (need prod endpoints)
 yarn run build;
@@ -17,8 +17,8 @@ lastCommitHash=$(git rev-parse --short HEAD)
 lastCommit=$(git log -n 1 --oneline)
 branchName=$(git rev-parse --abbrev-ref HEAD)
 
-cd ./dist;
-git add . ;
-
-git commit -m "Push on: `(date "+%F %T")` from ${lastCommitHash} on branch ${branchName}" -m "Built version of: ${lastCommit}";
-git push origin master;
+#cd ./dist;
+#git add . ;
+git -C ../SURF_PROD add . ;
+git -C ../SURF_PROD commit -m "Push on: `(date "+%F %T")` from ${lastCommitHash} on branch ${branchName}" -m "Built version of: ${lastCommit}";
+git -C ../SURF_PROD push origin master;
