@@ -7,8 +7,8 @@ const path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    index: path.resolve(__dirname, '../../SURF_PROD/index.html'),
+    assetsRoot: path.resolve(__dirname, '../../SURF_PROD'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
     productionSourceMap: true,
