@@ -3,7 +3,7 @@
 git -C ../SURF_PROD reset --hard;
 #git pull to sync with remote
 git -C ../SURF_PROD pull origin master;
-git pull origin master
+#git pull origin master
 #build for prod (need prod endpoints)
 yarn run build;
 #mv ./fonts ./dist/static/.;
