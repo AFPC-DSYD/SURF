@@ -911,23 +911,23 @@ export default {
                  
           this.workbook.SheetNames.sort();
           let tabOrder = Object.values(this.workbook.SheetNames);//name of all tabs
-          console.log("tabOrder: "+tabOrder); //name of sorted tabs
+          //console.log("tabOrder: "+tabOrder); //name of sorted tabs
           
           Object.keys(this.workbook.Sheets).sort();
           let sheSorted = Object.keys(this.workbook.Sheets).sort();
-          console.log("sheSorted: "+sheSorted);
+          //console.log("sheSorted: "+sheSorted);
           
           for (let d in sheSorted) {
           //for (var d in this.workbook.Sheets) {
-            console.log("d: "+d);
-            console.log("tabOrder: "+tabOrder[d]); //name of tab - not sorted  b/c of source workbook.Sheets
+            //console.log("d: "+d);
+            //console.log("tabOrder: "+tabOrder[d]); //name of tab - not sorted  b/c of source workbook.Sheets
 
             var sheet = this.workbook.Sheets[tabOrder[d]];  
             //var sheet = Object.values(this.workbook.Sheets).indexOf(Object.values(this.workbook.SheetNames));           
-            console.log("this.workbook.Sheets second time: "+Object.values(sheet).values);//Excel cell range A1:B4
+            //console.log("this.workbook.Sheets second time: "+Object.values(sheet).values);//Excel cell range A1:B4
 
             var page = XLSX.utils.sheet_to_json(sheet); //returns the array for each page
-            console.log("Page: "+Object.keys(page));
+            //console.log("Page: "+Object.keys(page));
             
             this.sheet_json.push(page);
             this.headers.push(this.get_header_row(sheet));
