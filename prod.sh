@@ -5,7 +5,7 @@ git -C ../SURF_PROD reset --hard;
 git -C ../SURF_PROD pull origin master;
 
 #cp -R ./dist/static/fonts/* ../SURF_PROD/static/fonts;
-mv -u ./dist/static/fonts/* ../SURF_PROD/static/font;
+mv -u ./dist/static/fonts/* ../SURF_PROD/static/fonts;
 
 #build for prod (need prod endpoints)
 yarn run build;
