@@ -4,7 +4,8 @@ git -C ../SURF_PROD reset --hard;
 #git pull to sync with remote to avoid collisions
 git -C ../SURF_PROD pull origin master;
 
-cp -R ./dist/static/fonts/* ../SURF_PROD/static/fonts;
+#cp -R ./dist/static/fonts/* ../SURF_PROD/static/fonts;
+mv -u ./dist/static/fonts/* ../SURF_PROD/static/font;
 
 #build for prod (need prod endpoints)
 yarn run build;
