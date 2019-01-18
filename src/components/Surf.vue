@@ -436,9 +436,7 @@ export default {
           'type' : this.type,
           'board': this.board,
           'list': list.join(',')
-        }
-
-      
+        }      
 
         axios.post(
           axios_url_surf,
@@ -717,38 +715,6 @@ export default {
 
                 if (this.currentParts >= this.totalParts)
                   this.loaded=true;
-                // this.zip.loadAsync(blob)
-                // .then(function (zippedFile) {
-                //     console.log(zippedFile)
-                //     zippedFile.forEach(function (relativePath, fileEntry) {
-                //       console.log(relativePath)
-                //       console.log(fileEntry)
-                //       this.folder.file(relativePath, fileEntry)
-                //     });
-                // })
-                // .then(function(){
-                //   console.log(this.folder)
-                //   if (this.currentParts >= this.totalParts){
-                //     console.log('Last step, EXPORT')
-                //     this.folder.generateAsync({type:"blob"})
-                //     .then(function (content) {
-                //         console.log('MADE BLOB, filesaver SAVE')
-                //         console.log(' WHAt : ' +  content)
-                //         // see FileSaver.js
-                //         FileSaver.saveAs(content, this.boardLink + ' ' + this.typeString + '.zip');
-                //     });
-                //   }
-                // })
-
-                // this.zip.loadAsync(response.data).then(function (zip) {
-                //   Object.keys(zip.files).forEach(function (filename) {
-                //     this.folder.loadAsync(zip.files[filename], 
-                //     zip.files[filename].async('string').then(function (fileData) {
-                //       console.log(fileData) // These are your file contents      
-                //     })
-                //   })
-                // })
-                //FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
             });  
           }
         }
@@ -865,11 +831,11 @@ export default {
         return headers;
     },
     fixdata(data) {
-      var o = "", l = 0, w = 10240;
+      var originData = "", l = 0, w = 10240;
       for(; l<data.byteLength/w; ++l) {
-        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
-        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-        return o;
+        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
+        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+        return originData;
       }
     },
     workbook_to_json(workbook) {
@@ -969,7 +935,7 @@ export default {
   },
   beforeUpdate() {
     console.log("beforeupdate")
-  },
+  }
 }
 </script>
 <!-- 
