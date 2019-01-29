@@ -876,14 +876,14 @@ export default {
           this.headers = []
                  
           this.workbook.SheetNames.sort();
-          let tabOrder = Object.values(this.workbook.SheetNames);//name of all tabs
+          var tabOrder = _.values(this.workbook.SheetNames);//name of all tabs
           //console.log("tabOrder: "+tabOrder); //name of sorted tabs
           
-          Object.keys(this.workbook.Sheets).sort();
-          let sheSorted = Object.keys(this.workbook.Sheets).sort();
+          _.keys(this.workbook.Sheets).sort();
+          var sheSorted = _.keys(this.workbook.Sheets).sort();
           //console.log("sheSorted: "+sheSorted);
           
-          for (let d in sheSorted) {
+          for (var d in sheSorted) {
           //for (var d in this.workbook.Sheets) {
             //console.log("d: "+d);
             //console.log("tabOrder: "+tabOrder[d]); //name of tab - not sorted  b/c of source workbook.Sheets
