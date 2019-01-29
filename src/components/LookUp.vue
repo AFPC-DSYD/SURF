@@ -232,7 +232,7 @@
 	          	const formData = {
 	           		'_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
 	            	'nPage':"lookup",
-	            	'name':this.name,
+	            	'name':this.name.toUpperCase(),
 	            	'nameType' : this.nameCurrent,
 	            	'ssn': this.ssn,
 	            	'ssnType': this.ssnCurrent,
