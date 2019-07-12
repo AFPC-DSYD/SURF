@@ -1,5 +1,5 @@
 #!/bin/bash
-#begin by resetting ps_fla working directory to last commit state
+#begin by resetting surf_fla working directory to last commit state
 git -C ./dist reset --hard; 
 #git pull to sync with remote to avoid collisions
 git -C ./dist pull origin master;
