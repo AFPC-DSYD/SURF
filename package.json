@@ -1,7 +1,7 @@
 {
-  "name": "perstat",
+  "name": "SURF",
   "version": "1.0.0",
-  "description": "Perstat web app",
+  "description": "SURF web app",
   "author": "Caleb <caleb.ziegler@gmail.com>",
   "private": true,
   "scripts": {
