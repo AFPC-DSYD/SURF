@@ -15,7 +15,9 @@ export default new Router({
     {
       path: '/',
       name: 'Surf',
-      component: Surf
+      component: process.env.NODE_ENV === 'production'
+        ? Surf
+        : SurfFla
     },
     {
       path: '/Surf_CIP',
@@ -26,11 +28,6 @@ export default new Router({
       path: '/AD_Grab',
       name: 'AD_Grab',
       component: AD_Grab
-    },
-    {
-      path: '/SurfFla',
-      name: 'Surf_Fla',
-      component: SurfFla
     },
     {
       path: '/LookUp',

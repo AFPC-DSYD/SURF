@@ -12,7 +12,9 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: process.env.NODE_ENV === 'production'
+     ? './src/main.js'
+     : './src/mainFLA.js' // added to check SURF dynamic js call for FLA vs PROD
   },
   output: {
     path: config.build.assetsRoot,

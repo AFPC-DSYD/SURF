@@ -1,26 +1,22 @@
 #!/bin/bash
 yarn run fla;
-mv ./fonts ./dist/static/.;
-rm ./dist/static/js/*.map;
-rm ./dist/static/*.png;
-rm ./dist/static/*.jpg;
-rm ./dist/static/*.JPG;
-
-rm -rf ../New_Push
-mkdir ../New_Push
-mkdir ../New_Push/FLA
-mkdir ../New_Push/PROD
-
-cp -a ./dist ../New_Push/FLA
-mv ../New_Push/FLA/dist ../New_Push/FLA/PERS_STAT
+#get most recent commit and current branch in SURF
+lastCommitHash=$(git rev-parse --short HEAD)
+lastCommit=$(git log -n 1 --oneline)
+branchName=$(git rev-parse --abbrev-ref HEAD)
+#push code up to github surf_fla
+git -C ../SURF_FLA add . ;
+git -C ../SURF_FLA commit -m "Push on: `(date "+%F %T")` from ${lastCommitHash} on branch ${branchName}" -m "Built version of: ${lastCommit}";
+git -C ../SURF_FLA push origin master;
 
 yarn run build;
-mv ./fonts ./dist/static/.;
-rm ./dist/static/js/*.map;
-rm ./dist/static/*.png;
-rm ./dist/static/*.jpg;
-rm ./dist/static/*.JPG;
+#get most recent commit and current branch in SURF
+lastCommitHash=$(git rev-parse --short HEAD)
+lastCommit=$(git log -n 1 --oneline)
+branchName=$(git rev-parse --abbrev-ref HEAD)
 
-cp -a ./dist ../New_Push/PROD
-mv ../New_Push/PROD/dist ../New_Push/PROD/PERS_STAT
+#git add, commit, and push code up to github
+git -C ./dist add . ;
+git -C ./dist commit -m "Push on: `(date "+%F %T")` from ${lastCommitHash} on branch ${branchName}" -m "Built version of: ${lastCommit}";
+git -C ./dist push origin master;
 
