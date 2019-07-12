@@ -84,7 +84,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       name: 'manifest',
       chunks: ['vendor']
     }),
-    // no need to copy static assets
   ]
 })
 
