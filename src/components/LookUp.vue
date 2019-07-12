@@ -30,7 +30,7 @@
 				</div>
 				<div class="row no-top">
 					<div class="col">
-						<h4> SSN: </h4>
+						<h4> SSN: </h4><p class="no-marg">No dashes</p>
 						<span>
 							<input 	type="text"  class="col-6 form-control" v-model="ssn" placeholder="SSN Search">
 							<button class="col-5 btn btn-sm btn-secondary dropdown-toggle" type="button" id="ssnOption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ ssnCurrent }} </button>

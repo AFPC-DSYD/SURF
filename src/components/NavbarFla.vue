@@ -14,7 +14,7 @@
           <router-link class="nav-item" to="/AD_Grab" tag="li" active-class="active" exact><a class="nav-link">AD_Grab</a></router-link>
           <router-link class="nav-item" to="/Vml" tag="li" active-class="active" exact><a class="nav-link">Vml</a></router-link>
           <router-link class="nav-item" to="/ADP" tag="li" active-class="active" exact><a class="nav-link">ADP</a></router-link>
-          <!-- <router-link class="nav-item" to="/SurfFla" tag="li" active-class="active" exact><a class="nav-link">SurfFla</a></router-link> -->
+          <router-link class="nav-item" to="/SurfFla" tag="li" active-class="active" exact><a class="nav-link">SurfFla</a></router-link>
         </ul>
       </div>
     </nav>

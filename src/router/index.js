@@ -6,6 +6,7 @@ import AD_Grab from '@/components/AD_Grab'
 import SurfFla from '@/components/SurfFla'
 import LookUp from '@/components/LookUp'
 import Vml from '@/components/vml'
+import ADP from '@/components/ADP'
 
 Vue.use(Router)
 
@@ -36,11 +37,15 @@ export default new Router({
       name: 'LookUp',
       component: LookUp
     },
-    ,
     {
       path: '/vml',
       name: 'vml',
       component: Vml
+    },
+    {
+      path: '/ADP',
+      name: 'ADP',
+      component: ADP
     },
     { path: '*', redirect: '/' }
   ],

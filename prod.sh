@@ -12,7 +12,7 @@ lastCommitHash=$(git rev-parse --short HEAD)
 lastCommit=$(git log -n 1 --oneline)
 branchName=$(git rev-parse --abbrev-ref HEAD)
 
-#git add, commit, and push
+#git add, commit, and push code up to github
 git -C ../SURF_PROD add . ;
 git -C ../SURF_PROD commit -m "Push on: `(date "+%F %T")` from ${lastCommitHash} on branch ${branchName}" -m "Built version of: ${lastCommit}";
 git -C ../SURF_PROD push origin master;
