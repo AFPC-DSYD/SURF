@@ -12,14 +12,12 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: process.env.NODE_ENV === 'production'
-     ? './src/main.js'
-     : './src/mainFLA.js' // added to check SURF dynamic js call for FLA vs PROD
+    app: './src/main.js' 
   },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
+    publicPath: process.env.NODE_ENV === 'fla'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
@@ -64,7 +62,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: process.env.NODE_ENV === 'production'
+          name: process.env.NODE_ENV === 'fla'
                 ? utils.assetsPath('../../fonts/[name].[hash:7].[ext]')
                 : utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }

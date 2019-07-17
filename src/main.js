@@ -68,14 +68,14 @@ router.beforeEach((to, from, next) => {
 	 	if (store.state.sanity != check_portal){
 	 	  	var querystring = require('querystring');
           	const formData = {
-            	_PROGRAM:"/REN - Dashboard Home V1/makeHTML",
+            	_PROGRAM:"/WebApps/SURF/surf",
             	nPage:"sanity"
           	}
           	var myData = axios.post(axios_url_surf, querystring.stringify(formData))
           	.then(function(response){
             	var mySanity = response.data.sanity;
             	if (mySanity != 'INSANE'){
-              		window.location.href = 'https://starsraw.afpc.randolph.af.mil';
+              		window.location.href = 'https://stars.afpc.randolph.af.mil';
             	} else {
               		store.state.sanity = 'INSANE'
                   store.state.adoff = response.data.adoff
@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
             	}
           	}).catch(function(error){
             	console.log(error)
-            	window.location.href = 'https://starsraw.afpc.randolph.af.mil';
+            	window.location.href = 'https://stars.afpc.randolph.af.mil';
           	})
         } else {
           next();

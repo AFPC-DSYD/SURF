@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark primary-color-dark fixed-top">
       <img src="../../static/afpc_log.png" height="30px">
-      <div class="navbar-brand white-text"><router-link class="white-text" to="/">STARS-RAW</router-link></div>
+      <div class="navbar-brand white-text"><router-link class="white-text" to="/">STARS</router-link></div>
       <button class="navbar-toggler hoverable" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,7 +14,6 @@
           <router-link class="nav-item" to="/AD_Grab" tag="li" active-class="active" exact><a class="nav-link">AD_Grab</a></router-link>
           <router-link class="nav-item" to="/Vml" tag="li" active-class="active" exact><a class="nav-link">Vml</a></router-link>
           <router-link class="nav-item" to="/ADP" tag="li" active-class="active" exact><a class="nav-link">ADP</a></router-link>
-          <!-- <router-link class="nav-item" to="/SurfFla" tag="li" active-class="active" exact><a class="nav-link">SurfFla</a></router-link> -->
         </ul>
       </div>
     </nav>

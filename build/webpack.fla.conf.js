@@ -10,9 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-const env = process.env.NODE_ENV === 'testing'
+const env = process.env.NODE_ENV === 'fla'
   ? require('../config/test.env')
-  : config.buildFla.env
+  : config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -21,9 +21,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.buildFla.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
-    path: config.buildFla.assetsRoot,
+    path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
@@ -34,8 +34,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.DefinePlugin({
       
-      //FLA BUILD - THIS MUST be run for PROD DEPLOYMENT
-      'axios_url': '"https://stars.afpc.randolph.af.mil/"', 
+      //PROD BUILD - HIS MUST be run for PROD DEPLOYMENT
+      'check_portal': '"INSANE"',
+      'axios_url_surf': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_url_vml': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_validate': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_final': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',  
     }),
     // no Uglify js because fla code
     // extract css into its own file
@@ -55,10 +60,17 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'fla'
         ? 'index.html'
-        : config.buildFla.index,
+        : config.build.index,
       template: 'index.html',
       inject: true,
-      //don't minify for fla
+      //changed minify props from true to false
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true 
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
@@ -87,7 +99,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-if (config.buildFla.productionGzip) {
+if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -96,7 +108,7 @@ if (config.buildFla.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        config.buildFla.productionGzipExtensions.join('|') +
+        config.build.productionGzipExtensions.join('|') +
         ')$'
       ),
       threshold: 10240,

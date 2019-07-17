@@ -4,7 +4,7 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">SURF</h1>
+      <h1 class="col">SURF FLA</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
@@ -430,7 +430,7 @@ export default {
 
         var querystring = require('querystring');
         const formData = {
-          '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+          '_PROGRAM':"/WebApps/SURF/surf",
           'nPage':"runSurf",
           'force':this.force,
           'type' : this.type,
@@ -556,7 +556,7 @@ export default {
           this.currentParts = 0;
           var querystring = require('querystring');
           const formData = {
-            '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+            '_PROGRAM':"/WebApps/SURF/surf",
             'nPage':"validate",
             'force':this.force,
             'type' : this.type,
@@ -592,7 +592,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"validate",
               'force':this.force,
               'type' : this.type,
@@ -625,7 +625,7 @@ export default {
           console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runSurf2",
               'force':this.force,
               'type' : this.type,
@@ -684,7 +684,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runSurf",
               'force':this.force,
               'type' : this.type,

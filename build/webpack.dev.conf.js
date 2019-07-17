@@ -29,7 +29,7 @@ module.exports = merge(baseWebpackConfig, {
       'axios_url_vml': '"http://localhost:5005/api/vml"',
       'axios_ad_grab_validate': '"http://localhost:5005/api/ad_grab"',
       'axios_ad_grab_final': '"http://localhost:5005/api/ad_grab_final"',
-      'AXIOS_PROGRAM':'"/REN - Dashboard Home V1/makeHTML"',
+      'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),

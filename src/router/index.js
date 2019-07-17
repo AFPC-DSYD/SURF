@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Surf from '@/components/Surf'
 import Surf_CIP from '@/components/Surf-CIP'
 import AD_Grab from '@/components/AD_Grab'
-import SurfFla from '@/components/SurfFla'
 import LookUp from '@/components/LookUp'
 import Vml from '@/components/vml'
 import ADP from '@/components/ADP'
@@ -15,9 +14,7 @@ export default new Router({
     {
       path: '/',
       name: 'Surf',
-      component: process.env.NODE_ENV === 'production'
-        ? Surf
-        : SurfFla
+      component: Surf
     },
     {
       path: '/Surf_CIP',
