@@ -1,7 +1,7 @@
 
-# StarsRaw
+# Stars
 
-> StarsRaw web app
+> Stars web app
 
 ## Build Setup
 

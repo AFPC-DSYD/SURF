@@ -17,7 +17,7 @@ const env = process.env.NODE_ENV === 'fla'
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
-      sourceMap: config.buildFla.productionSourceMap,
+      sourceMap: config.build.productionSourceMap,
       extract: true
     })
   },
@@ -117,7 +117,7 @@ if (config.build.productionGzip) {
   )
 }
 
-if (config.buildFla.bundleAnalyzerReport) {
+if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
