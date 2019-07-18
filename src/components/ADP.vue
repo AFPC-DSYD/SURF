@@ -363,7 +363,7 @@ export default {
 
         var querystring = require('querystring');
         const formData = {
-          '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+          '_PROGRAM':"/WebApps/SURF/surf",
           'nPage':"runSurf",
           'force':this.force,
           'type' : this.type,
@@ -521,7 +521,7 @@ export default {
           this.currentParts = 0;
           var querystring = require('querystring');
           const formData = {
-            '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+            '_PROGRAM':"/WebApps/SURF/surf",
             'nPage':"validateAD",
             'dins' : this.dins,
             'force':this.force,
@@ -558,7 +558,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"validateAD",
               'dins' : this.dins,
               'force':this.force,
@@ -598,7 +598,7 @@ export default {
           console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runAD",
               'dins' :this.validatedDins,
               'force':this.force,
@@ -637,7 +637,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runAD",
               'dins' :this.validatedDins,
               'force':this.force,

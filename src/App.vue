@@ -11,15 +11,12 @@
 
 <script>
 import Navbar from '@/components/Navbar'
-import NavbarFla from '@/components/NavbarFla'
 import Footer from '@/components/Footer'
 import { store } from '@/store/store'
 
 export default {
     components: {
-        'app-navbar': process.env.NODE_ENV === 'production'
-          ? Navbar
-          : NavbarFla, // added to check SURF dynamic js call for FLA vs PROD
+        'app-navbar': Navbar,
         'app-footer': Footer
     }, 
     computed: {

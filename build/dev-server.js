@@ -3,7 +3,7 @@ require('./check-versions')()
 
 const config = require('../config')
 if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = JSON.parse(config.fla.env.NODE_ENV)
+  process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
 const opn = require('opn')
@@ -11,9 +11,10 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = (process.env.NODE_ENV === 'fla' || process.env.NODE_ENV === 'production')
-  ? require('./webpack.prod.conf')
-  : require('./webpack.fla.conf')
+const webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'fla')
+  ? require('./webpack.fla.conf')
+  : require('./webpack.dev.conf')
+//const webpackConfig = require('./webpack.fla.conf')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -92,7 +93,7 @@ devMiddleware.waitUntilValid(() => {
     var uri = 'http://localhost:' + port
     console.log('> Listening at ' + uri + '\n')
     // when env is testing, don't need open it
-    if (autoOpenBrowser && process.env.NODE_ENV !== 'fla') {
+    if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
       opn(uri)
     }
     server = app.listen(port)

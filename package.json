@@ -1,16 +1,14 @@
 {
   "name": "SURF",
   "version": "1.0.0",
-  "description": "SURF web app",
+  "description": "SURF FLA web app",
   "author": "Caleb <caleb.ziegler@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "fla": "node build/buildFla.js",
-    "test": "npm run unit",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run"
+    "fla": "npm run fla"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",

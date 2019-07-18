@@ -230,7 +230,7 @@
 					this.endDate = this.startDate;
 				dt = this.startDate + ' ' + this.endDate;
 	          	const formData = {
-	           		'_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+	           		'_PROGRAM':"/WebApps/SURF/surf",
 	            	'nPage':"lookup",
 	            	'name':this.name.toUpperCase(),
 	            	'nameType' : this.nameCurrent,

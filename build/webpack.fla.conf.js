@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'fla'
-  ? require('../config/test.env')
+  ? require('../config/fla.env')
   : config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -34,15 +34,22 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.DefinePlugin({
       
-      //PROD BUILD - HIS MUST be run for PROD DEPLOYMENT
+      //FLA BUILD - THIS MUST be run for PROD DEPLOYMENT
+      'axios_url': '"https://stars.afpc.randolph.af.mil/"',
       'check_portal': '"INSANE"',
-      'axios_url_surf': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_url_vml': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_ad_grab_validate': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_ad_grab_final': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_url_surf': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_validate': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_final': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',  
     }),
-    // no Uglify js because fla code
+    // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      sourceMap: true
+    }),
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')

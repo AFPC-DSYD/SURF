@@ -10,8 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-const env = process.env.NODE_ENV === 'testing'
-  ? require('../config/test.env')
+const env = process.env.NODE_ENV === 'fla'
+  ? require('../config/fla.env')
   : config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -36,11 +36,11 @@ const webpackConfig = merge(baseWebpackConfig, {
       
       //PROD BUILD - HIS MUST be run for PROD DEPLOYMENT
       'check_portal': '"INSANE"',
-      'axios_url_surf': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_url_vml': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_ad_grab_validate': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_ad_grab_final': '"https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'AXIOS_PROGRAM':'"/REN - Dashboard Home V1/makeHTML"',   
+      'axios_url_surf': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_validate': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'axios_ad_grab_final': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',   
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new webpack.optimize.UglifyJsPlugin({
