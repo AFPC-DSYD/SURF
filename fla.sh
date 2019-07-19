@@ -5,7 +5,7 @@ git -C ../SURF_FLA reset --hard;
 git -C ../SURF_FLA pull origin master;
 
 #build for fla (need fla endpoints)
-yarn run fla;
+yarn run build;
 
 #get most recent commit and current branch in SURF
 lastCommitHash=$(git rev-parse --short HEAD)
