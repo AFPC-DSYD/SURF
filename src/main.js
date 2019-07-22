@@ -41,7 +41,7 @@ import router from './router'
 import axios from 'axios'
 
 //UNCOMMENT baseURL to run in PRODUCTION
-// axios.defaults.baseURL = 'https://starsraw.afpc.randolph.af.mil/SASStoredProcess/do'
+axios.defaults.baseURL = 'https://stars.afpc.randolph.af.mil/SASStoredProcess/do'
 axios.defaults.headers.get['Accepts'] = 'application/json'
 
 import 'bootstrap'
