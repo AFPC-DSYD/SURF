@@ -102,8 +102,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    })
-    // NEW - FLA had not copied custom static assets before this
+    }),
+    // FLA had not copied custom static assets before
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
