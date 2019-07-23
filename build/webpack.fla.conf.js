@@ -10,8 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-const env = process.env.NODE_ENV === 'fla'
-  ? require('../config/fla.env')
+const env = process.env.NODE_ENV === 'testing'
+  ? require('../config/test.env')
   : config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -35,7 +35,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       
       //FLA BUILD - THIS MUST be run for PROD DEPLOYMENT
-      'axios_url': '"https://stars.afpc.randolph.af.mil/"',
+      //'axios_url': '"https://stars.afpc.randolph.af.mil/"',
       'check_portal': '"INSANE"',
       'axios_url_surf': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
@@ -102,7 +102,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    }),
+    })
+    // FLA did NOT copy custom static assets
+
+
+
+
   ]
 })
 
