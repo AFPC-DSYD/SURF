@@ -1,14 +1,14 @@
 'use strict'
 const utils = require('./utils')
 const config = require('../config')
-const isFLA = process.env.NODE_ENV === 'fla'
+const isProduction = process.env.NODE_ENV === 'fla'
 
 module.exports = {
   loaders: utils.cssLoaders({
-    sourceMap: isFLA
+    sourceMap: isProduction
       ? config.build.productionSourceMap
       : config.dev.cssSourceMap,
-    extract: isFLA
+    extract: isProduction
   }),
   transformToRequire: {
     video: 'src',

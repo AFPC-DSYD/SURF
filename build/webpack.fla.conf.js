@@ -103,11 +103,14 @@ const webpackConfig = merge(baseWebpackConfig, {
       name: 'manifest',
       chunks: ['vendor']
     })
-    // FLA did NOT copy custom static assets
-
-
-
-
+    // NEW - FLA had not copied custom static assets before this
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
   ]
 })
 
