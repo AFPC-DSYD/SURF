@@ -430,7 +430,7 @@ export default {
 
         var querystring = require('querystring');
         const formData = {
-          '_PROGRAM':"/WebApps/SURF/surf",
+          '_PROGRAM':"/SURF/surf",
           'nPage':"runSurf",
           'force':this.force,
           'type' : this.type,
@@ -556,7 +556,7 @@ export default {
           this.currentParts = 0;
           var querystring = require('querystring');
           const formData = {
-            '_PROGRAM':"/WebApps/SURF/surf",
+            '_PROGRAM':"/SURF/surf",
             'nPage':"validate",
             'force':this.force,
             'type' : this.type,
@@ -592,7 +592,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/WebApps/SURF/surf",
+              '_PROGRAM':"/SURF/surf",
               'nPage':"validate",
               'force':this.force,
               'type' : this.type,
@@ -625,7 +625,7 @@ export default {
           console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
-              '_PROGRAM':"/WebApps/SURF/surf",
+              '_PROGRAM':"/SURF/surf",
               'nPage':"runSurf2",
               'force':this.force,
               'type' : this.type,
@@ -684,7 +684,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/WebApps/SURF/surf",
+              '_PROGRAM':"/SURF/surf",
               'nPage':"runSurf",
               'force':this.force,
               'type' : this.type,

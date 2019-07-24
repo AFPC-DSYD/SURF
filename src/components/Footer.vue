@@ -25,7 +25,7 @@
                     <ul>
                       <router-link class="footer-link" to="/" tag="li"><a class="nav-link">SURF FLA</a></router-link>
                       <router-link class="footer-link" to="/LookUp" tag="li"><a class="nav-link">LookUp</a></router-link>
-                      <router-link class="footer-link" to="/ADP" tag="li"><a class="nav-link">ADP</a></router-link>
+                      <router-link class="footer-link" to="/ADP" tag="li"><a class="nav-link">ADP SURF</a></router-link>
                     </ul>
                 </div>
                 <div class="col-md-4">

@@ -68,7 +68,7 @@ router.beforeEach((to, from, next) => {
 	 	if (store.state.sanity != check_portal){
 	 	  	var querystring = require('querystring');
           	const formData = {
-            	_PROGRAM:"/WebApps/SURF/surf",
+            	_PROGRAM:"/SURF/surf",
             	nPage:"sanity"
           	}
           	var myData = axios.post(axios_url_surf, querystring.stringify(formData))

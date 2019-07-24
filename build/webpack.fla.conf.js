@@ -32,8 +32,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new webpack.DefinePlugin({
-      
+    new webpack.DefinePlugin({      
       //FLA BUILD - THIS MUST be run for PROD DEPLOYMENT
       //'axios_url': '"https://stars.afpc.randolph.af.mil/"',
       'check_portal': '"INSANE"',
