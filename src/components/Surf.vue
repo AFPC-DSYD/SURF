@@ -129,64 +129,12 @@
             <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
             <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
           </div>
-          <!-- <div  class="row">
-            <div id="myGrid2"></div>
-          </div> -->
-          <!-- <div v-show="sentWarning" style="margin-top:10px;margin-bottom:10px;">
-            <el-tag closable type="warning" @close="sentWarning=false">Request Sent. Average response time is 30 seconds + 10 seconds per 100 SSN.</el-tag>
-          </div> -->
+
           <div v-show="step3" class="row">
             <div class='col-6'>
 
-             <!--  <el-table
-                :data="slicedGrid2"
-                stripe
-                max-height="500"
-                :default-sort = "{prop: 'SSN_FORMAT', order: 'ascending'}"
-                style="width:100%;"
-                fit
-                >
-
-                <el-table-column
-                   prop="SSN"
-                   label="SSN"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="SSN_FORMAT"
-                   label="SSN_FORMAT"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                   prop="VALIDATED"
-                   label="VALIDATED"
-                   sortable
-                   min-width="100"
-                   >
-                </el-table-column>
-
-                <el-table-column
-                  label="Delete"
-                  min-width="90"
-                  >
-                  <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row )">Delete</el-button>
-                  </template>
-                </el-table-column>
-            </el-table> -->
               <v-app>
               <v-dialog data-app="true" v-model="dialog" max-width="500px">
-                
-                <!-- <v-btn v-if="numGood > 0" color="success" dark class="mb-2" @click="runSurf"> Run ({{numGood}}) {{force}} {{typeString}} </v-btn> -->
                 <v-card>
                   <v-card-title >
                     <span class="headline">{{ formTitle }}</span>
@@ -791,7 +739,7 @@ export default {
       },
       changeSheet(num){
         //var num = Object.keys(this.workbook.Sheets).indexOf(this.workbook.SheetNames[num])
-        console.log("num: "+num);        
+        //console.log("num: "+num);        
         this.currentSheetIndex = num
       },
       onFileChange(e) {

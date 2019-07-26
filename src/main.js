@@ -82,6 +82,7 @@ router.beforeEach((to, from, next) => {
                   store.state.adenl = response.data.adenl
                   store.state.lookup = response.data.lookup
                   store.state.AD = response.data.AD
+                  store.state.todps = response.data.todps
               		next();
               		//alert('AUTHENTICATED')
             	}
