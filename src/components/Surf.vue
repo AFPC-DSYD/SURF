@@ -171,9 +171,9 @@
                 min-height="1vh"  
               >
                 <tr slot="items" slot-scope="props">
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.VALIDATED }}</td>
                   <td @click="" class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="editItem(props.item)">
                       <FontAwesomeIcon icon="edit"

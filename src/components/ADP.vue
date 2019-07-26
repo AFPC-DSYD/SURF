@@ -134,9 +134,16 @@
                 min-height="1vh"  
               >
                 <tr slot="items" slot-scope="props">
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
-                  <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}
+                    <v-btn icon class="mx-0" @click="">
+                      <FontAwesomeIcon icon="arrow-up"
+                                       size="sm"
+                                       >
+                      </FontAwesomeIcon>
+                    </v-btn>                  
+                  </td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
+                  <td @click="" class="my-2 text-xs-left">{{ props.item.VALIDATED }}</td>
                   <td @click="" class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="editItem(props.item)">
                       <FontAwesomeIcon icon="edit"
@@ -538,17 +545,17 @@ export default {
         var partLen = 500;
         this.sentWarning = true;
         var list = []        
-        console.log(this.myGrid2.data.length)
+        //console.log(this.myGrid2.data.length)
         var getList = this.parse(this.myGrid2.data, 'SSN', 1)
         getList.forEach((d)=>{
           if (d.SSN_FORMAT)
             list.push(d.SSN)
         })
-        console.log('len: ' + list.length)
+        //console.log('len: ' + list.length)
         if (list.length <= partLen){
           this.totalParts = 0;
           this.currentParts = 0;
-          console.log('SINGLE PART')
+          //console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
               '_PROGRAM':"/WebApps/SURF/surf",
@@ -564,9 +571,9 @@ export default {
                     'Accept': 'application/zip'
                   }
             }).then(response => {
-                console.log('MADE IT HERE - Single Pull')
-                console.log(response)
-                console.log(response.data);
+                //console.log('MADE IT HERE - Single Pull')
+                //console.log(response)
+                //console.log(response.data);
 
                 function str2bytes (str) {
                   var bytes = new Uint8Array(str.length);
@@ -580,34 +587,34 @@ export default {
                   type: 'application/zip',
                 });
 
-                console.log(blob)
+                //console.log(blob)
                 FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
                 this.loaded=true;
             }); 
         } else {
-          console.log('MULTI PART')
+          //console.log('MULTI PART')
           var nums = Math.floor(list.length / partLen);
           var remaining = list.length % partLen;
-          console.log('remaining: ' + remaining)
+          //console.log('remaining: ' + remaining)
           if (remaining > 0)
             nums += 1
           this.totalParts = nums;
           this.currentParts = 0;
-          console.log('nums: ' + nums)
+          //console.log('nums: ' + nums)
           var splitList = []
           for (var i=1; i<= nums;i++){
 
             if (i != nums){
               splitList = list.slice(partLen * (i - 1), partLen * i)
-              console.log('start: ' + partLen * (i - 1))
-              console.log('end: ' + partLen * i)
+              //console.log('start: ' + partLen * (i - 1))
+              //console.log('end: ' + partLen * i)
             }
             else {
               splitList = list.slice(partLen * (i - 1), partLen * (i - 1) + remaining)
-              console.log('start: ' + partLen * (i - 1))
-              console.log('end: ' + (partLen * (i - 1) + remaining))
+              //console.log('start: ' + partLen * (i - 1))
+              //console.log('end: ' + (partLen * (i - 1) + remaining))
             }
-          console.log('splitList Length: ' + splitList.length)
+          //console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
               '_PROGRAM':"/WebApps/SURF/surf",
@@ -619,7 +626,7 @@ export default {
               'part': i,
               'max': nums
             }
-          console.log(formData)
+          //console.log(formData)
             axios.get(axios_url_surf + '?' + querystring.stringify(formData), {
                   responseType: 'arraybuffer',
                   headers: {
@@ -627,16 +634,16 @@ export default {
                   }
             }).then(response => {
                 this.currentParts+=1
-                console.log('MADE IT HERE - ' + this.currentParts + ' of ' + this.totalParts)
-                console.log(response)
-                console.log(response.data);
+                //console.log('MADE IT HERE - ' + this.currentParts + ' of ' + this.totalParts)
+                //console.log(response)
+                //console.log(response.data);
 
                 
                 const blob = new Blob([response.data], {
                   type: 'application/zip',
                 });
 
-                console.log(blob)
+                //console.log(blob)
                 FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + ' ' + this.currentParts + ' of ' + this.totalParts + ' .zip');
 
                 if (this.currentParts >= this.totalParts)

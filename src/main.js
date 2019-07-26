@@ -59,8 +59,9 @@ import faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCirc
 import faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle'
 import faEdit from '@fortawesome/fontawesome-free-solid/faEdit'
 import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
+import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp'
 
-fontawesome.library.add(faSpinner,faQuestionCircle, faInfoCircle, faEdit, faTrash)
+fontawesome.library.add(faSpinner,faQuestionCircle, faInfoCircle, faEdit, faTrash, faArrowUp)
 
 import { store } from '@/store/store'
 
