@@ -57,8 +57,10 @@ import fontawesome from '@fortawesome/fontawesome'
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 import faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle'
 import faInfoCircle from '@fortawesome/fontawesome-free-solid/faInfoCircle'
+import faEdit from '@fortawesome/fontawesome-free-solid/faEdit'
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
 
-fontawesome.library.add(faSpinner,faQuestionCircle, faInfoCircle)
+fontawesome.library.add(faSpinner,faQuestionCircle, faInfoCircle, faEdit, faTrash)
 
 import { store } from '@/store/store'
 

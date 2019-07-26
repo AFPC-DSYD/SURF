@@ -168,10 +168,20 @@
                   <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td>
                   <td @click="" class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="editItem(props.item)">
-                      <v-icon color="teal">edit</v-icon>
+                      <FontAwesomeIcon icon="edit"
+                                       color="teal"
+                                       size="lg"
+                                       >
+                      </FontAwesomeIcon>
+                      <!--<v-icon color="teal">edit</v-icon>-->
                     </v-btn>
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-                      <v-icon color="pink">delete</v-icon>
+                      <FontAwesomeIcon icon="trash"
+                                       color="#ff4f5e"
+                                       size="lg"
+                                       >
+                      </FontAwesomeIcon>                      
+                      <!--<v-icon color="pink">delete</v-icon>-->
                     </v-btn>
                   </td>
                 </tr>
@@ -202,6 +212,7 @@ import axios from 'axios'
 import loader from './Loader'
 import { store } from '@/store/store'
 import JSZip from 'jszip'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 export default {
   data() {
@@ -269,7 +280,8 @@ export default {
       // document.getElementById('myGrid2').appendChild(this.myGrid2)
     },
     components:{
-      loader
+      loader,
+      FontAwesomeIcon
     },
     computed:{
       slicedGrid2(){
@@ -886,8 +898,8 @@ export default {
   }
 }
 </script>
-<!-- 
-<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet"> -->
+ 
+<!--<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">-->
 <style scoped>
 #drop{
 border: 2px dashed #bbb;
