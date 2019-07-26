@@ -125,15 +125,23 @@
             </div>
           </div>
           <div v-show="step3" class="row">
-            <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }}</h6>
-            <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
-            <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
+            <div class="col-7">
+              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }} 
+                <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
+                <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
+              </h6>
+            </div>
+            <div class="col-5">
+              <h6  style="margin-top:12px;margin-left:20px"> &nbsp; 
+              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
+              </h6>
+            </div>
           </div>
 
           <div v-show="step3" class="row">
-            <div class='col-6'>
+            <div class='col-12'>
 
-              <v-app>
+              <v-app min-height="1vh" >
               <v-dialog data-app="true" v-model="dialog" max-width="500px">
                 <v-card>
                   <v-card-title >
@@ -188,7 +196,7 @@
               </v-data-table>
             </v-app>
             <div class="row">
-              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
+              
             </div>
             </div>
           </div>
