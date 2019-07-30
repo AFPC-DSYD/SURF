@@ -384,7 +384,7 @@ export default {
       currentSheetIndex: function(val){
         this.showGrid = true        
         this.myGrid.data = this.sheet_json[this.currentSheetIndex]
-        //this.selectedCol = -1 
+        this.selectedCol = -1 
       },
       force: function(val){
         if (val =='officer'){
@@ -816,12 +816,11 @@ export default {
         return headers;
     },
     fixdata(data) {
-      var originData = "", l = 0, w = 10240;
-      for(; l<data.byteLength/w; ++l) {
-        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
-        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-        return originData;
-      }
+      var o = "", l = 0, w = 10240;
+      for(; l<data.byteLength/w; ++l) 
+        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
+        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+        return o;      
     },
     workbook_to_json(workbook) {
       var result = {};
@@ -854,13 +853,13 @@ export default {
           var results, 
               data = e.target.result,
               fixedData = this.fixdata(data);
-          // cant use readFile, since it is only used in SERVER environments
-          // use XLSX.read to read array buffer and convert to base64   
+          /* cant use readFile, since it is only used in SERVER environments*/
+          /* use XLSX.read to read array buffer and convert to base64 */  
           this.workbook=XLSX.read(btoa(fixedData), {type: 'base64'});
-          this.sheet_json = [];
+          this.sheet_json = []
           this.headers = []
                  
-                      for (var d in this.workbook.Sheets){
+          for (var d in this.workbook.Sheets){
               var sheet = this.workbook.Sheets[d]
               var page = XLSX.utils.sheet_to_json(sheet)
 
