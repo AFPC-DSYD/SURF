@@ -163,7 +163,6 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <!-- :headers="headersV" -->
               <v-data-table
                 :headers="headersV"
                 :items="slicedGrid2"
@@ -172,7 +171,7 @@
                 min-height="1vh"  
               >
 
-              <template slot="headers" slot-scope="props">
+<!--               <template slot="headers" slot-scope="props">
                   <tr>
                       <th v-for="col in headersV" :key="col.text"
             :class="[
@@ -186,7 +185,7 @@
                             </FontAwesomeIcon>          
                       </th>
                   </tr>
-              </template>
+              </template> -->
 
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
