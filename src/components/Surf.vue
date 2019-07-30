@@ -163,6 +163,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              <!-- :headers="headersV" -->
               <v-data-table
                 :headers="headersV"
                 :items="slicedGrid2"
@@ -170,6 +171,23 @@
                 class="elevation-1"
                 min-height="1vh"  
               >
+
+              <template slot="headers" slot-scope="props">
+                  <tr>
+                      <th v-for="col in headersV" :key="col.text"
+            :class="[
+                'column sortable', 
+                table.pagination.descending ? 'desc' : 'asc', 
+                col.value === table.pagination.sortBy ? 'active' : ''
+            ]"> {{ props.header[col.text] }}                          
+                            <FontAwesomeIcon icon="arrow-up"
+                                             color="teal"
+                                             size="lg"                              >
+                            </FontAwesomeIcon>          
+                      </th>
+                  </tr>
+              </template>
+
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
@@ -811,7 +829,7 @@ export default {
       workbook.SheetNames.forEach(function(sheetName) {
         var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         
-        if(roa.length ^""){
+        if(roa.length >0){
           result[sheetName] = roa;
         }
 
@@ -834,41 +852,30 @@ export default {
         console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
         
         reader.onload = (e)=>{
-          //var results, 
-          var data = e.target.result;
-          var fixedData = this.fixdata(data);
+          var results, 
+              data = e.target.result,
+              fixedData = this.fixdata(data);
           // cant use readFile, since it is only used in SERVER environments
           // use XLSX.read to read array buffer and convert to base64   
           this.workbook=XLSX.read(btoa(fixedData), {type: 'base64'});
-          this.sheet_json = [].sort();
+          this.sheet_json = [];
           this.headers = []
                  
-          this.workbook.SheetNames.sort();
-          var tabOrder = _.values(this.workbook.SheetNames);//name of all tabs
-          //console.log("tabOrder: "+tabOrder); //name of sorted tabs
-          
-          _.keys(this.workbook.Sheets).sort();
-          var sheSorted = _.keys(this.workbook.Sheets).sort();
-          //console.log("sheSorted: "+sheSorted);
-          
-          for (var d in sheSorted) {
-          //for (var d in this.workbook.Sheets) {
-            //console.log("d: "+d);
-            //console.log("tabOrder: "+tabOrder[d]); //name of tab - not sorted  b/c of source workbook.Sheets
+                      for (var d in this.workbook.Sheets){
+              var sheet = this.workbook.Sheets[d]
+              var page = XLSX.utils.sheet_to_json(sheet)
 
-            var sheet = this.workbook.Sheets[tabOrder[d]];  
-            //var sheet = Object.values(this.workbook.Sheets).indexOf(Object.values(this.workbook.SheetNames));           
-            //console.log("this.workbook.Sheets second time: "+Object.values(sheet).values);//Excel cell range A1:B4
-
-            var page = XLSX.utils.sheet_to_json(sheet); //returns the array for each page
-            //console.log("Page: "+Object.keys(page));
-            
-            this.sheet_json.push(page);
-            this.headers.push(this.get_header_row(sheet));
-          }         
+              this.sheet_json.push(page)
+              this.headers.push(this.get_header_row(sheet))
+            }
+          // this.myGrid = canvasDatagrid();
           var div = document.getElementById('myGrid');
           this.myGrid.data = this.sheet_json[this.currentSheetIndex];
           
+          // while(div.firstChild){
+          //     div.removeChild(div.firstChild);
+          // }
+          // document.getElementById('myGrid').appendChild(this.myGrid)
         };
         reader.readAsArrayBuffer(f);
       }
@@ -909,6 +916,7 @@ export default {
  
 <!--<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">-->
 <style scoped>
+
 #drop{
 border: 2px dashed #bbb;
     -moz-border-radius: 5px;

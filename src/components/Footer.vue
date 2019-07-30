@@ -5,20 +5,11 @@
                 <div class="col-md-4">
                     <p class='no-marg'>For more information, questions or concerns please contact:</p>
                     <h5 class="title mb-2 mt-3 font-bold">AFPC DSYD</h5>
-<!--                     <div class="row"> -->
-<!--                         <div class="col-2"> -->
-                           <p class='no-marg'>Email: <a class='font-bold' href="mailto:DSYD.WorkFlow@us.af.mil?Subject=PERS_STAT Assistance">DSYD.WorkFlow@us.af.mil</a> </p>
-                           <p class='no-marg'>DSN: 312-665-3540</p>
-                           <p class='no-marg'>COM: 210-565-3540</p>
-<!--                         </div> -->
-<!--                         <div class="col">
-                        <p class='no-marg'> 
-                            
-                        </p>
-                        <p class='no-marg'></p>
-                        <p class='no-marg'></p>
-                        </div> -->
-<!--                     </div> -->
+                    <ul class="">
+                        <li class='contact-marg'>Email:&nbsp;&nbsp;<a class='font-bold' href="mailto:DSYD.WorkFlow@us.af.mil?Subject=PERS_STAT Assistance">DSYD.WorkFlow@us.af.mil</a></li>
+                        <li class='contact-marg'>DSN:&nbsp;&nbsp;<a class='font-bold' href="tel:+1-312-665-3540">312-665-3540</a></li>
+                        <li class='contact-marg'>COM:&nbsp;&nbsp;<a class='font-bold' href="tel:+1-210-565-3540">210-565-3540</a></li>
+                    </ul>
                 </div>
                 <div class="col-md-4">
                     <h5 class="title mb-2 mt-3 font-bold">Links</h5>
@@ -31,6 +22,7 @@
                 <div class="col-md-4">
                     <h5 class="title mb-2 mt-3 font-bold"> Additional Links</h5>
                     <ul>
+                        <router-link class="footer-link" to="/" tag="li"><a class="logo-marg nav-link"><img data-v-41458b80="" src="/static/img/afpc_log.e969ea7.png" height="120px"></a></router-link>
                     </ul>
                 </div>
                 <div class="footer-copyright">
@@ -50,8 +42,13 @@
     a, a:active, a:focus, button, button:active, button:focus {
         outline: none;
     }
-    .footer-link {
-        height: 30px;
+    .contact-marg {
+        margin: 0 1rem;        
+    }
+    .logo-marg {
+      margin: 0 1rem;
+      text-decoration: none;
+
     }
     .no-marg{
       margin: 0 0;

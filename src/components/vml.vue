@@ -231,7 +231,7 @@
 				console.log(col + ' -- ' + id + ' -- ' + newValue)
 				var querystring = require('querystring');
 				const formData = {
-	           		'_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+	           		'_PROGRAM':"/WebApps/SURF/surf",
 	            	'nPage':"vml_insert",
 	            	'insertId' : id,
 	            	'col':col,
@@ -257,7 +257,7 @@
 					this.endDate = this.startDate;
 				dt = this.startDate + ' ' + this.endDate;
 	          	const formData = {
-	           		'_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+	           		'_PROGRAM':"/WebApps/SURF/surf",
 	            	'nPage':"vml",
 	            	'name':this.name,
 	            	'nameType' : this.nameCurrent,
