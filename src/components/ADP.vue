@@ -83,7 +83,7 @@
                   @click="validate"> Validate List </button>
               <button v-if="numValidated > 0"
                   :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
-                  title="Make sure the currect type of SURF is requested"
+                  title="Run the ADP SURF"
                   @click="runTODP"> Run ({{numValidated}}) {{force}} {{typeString}} </button>
             </div>
           </div>

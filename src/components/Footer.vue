@@ -22,7 +22,7 @@
                 <div class="col-md-4">
                     <h5 class="title mb-2 mt-3 font-bold"> Additional Links</h5>
                     <ul>
-                        <router-link class="footer-link" to="/" tag="li"><a class="logo-marg nav-link"><img data-v-41458b80="" src="/static/img/afpc_log.e969ea7.png" height="120px"></a></router-link>
+                        <router-link class="footer-link" to="/" tag="li"><a class="logo-marg nav-link"><img src="../../static/afpc_log.png" height="120px"></a></router-link>
                     </ul>
                 </div>
                 <div class="footer-copyright">
