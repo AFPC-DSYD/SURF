@@ -96,8 +96,18 @@
                 hide-actions
                 class="elevation-1"               
               >
+              <tr slot="headers" slot-scope="props">
+                <th v-for="col in headersV1" > {{ col.text }}
+<!--                       <FontAwesomeIcon icon="arrow-up"
+                                       color="grey"
+                                       size="md"
+                                       >
+                      </FontAwesomeIcon>   -->                 
+                </th>
+              </tr>
               <tr slot="items" slot-scope="props">
-                <td v-for="col in headersV1">{{ props.item[col.text] }}</td>
+                <td v-for="col in headersV1">{{ props.item[col.text] }}
+                </td>
               </tr>
             </v-data-table>
           </div>
@@ -166,27 +176,28 @@
               <v-data-table
                 :headers="headersV"
                 :items="slicedGrid2"
+                :sort-by.sync="currentSort"
+                :sort-desc.sync="descending"
                 hide-actions
                 class="elevation-1"
-                min-height="1vh"  
+                min-height="1vh"               
               >
-
-<!--               <template slot="headers" slot-scope="props">
-                  <tr>
-                      <th v-for="col in headersV" :key="col.text"
-            :class="[
-                'column sortable', 
-                table.pagination.descending ? 'desc' : 'asc', 
-                col.value === table.pagination.sortBy ? 'active' : ''
-            ]"> {{ props.header[col.text] }}                          
-                            <FontAwesomeIcon icon="arrow-up"
-                                             color="teal"
-                                             size="lg"                              >
-                            </FontAwesomeIcon>          
-                      </th>
-                  </tr>
-              </template> -->
-
+<!--                 <tr slot="headers" slot-scope="props">
+                  <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }} -->
+                    
+<!--  hold <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }}
+-->
+<!--                     <i aria-hidden="true" class="mx-0 px-2" style="font-size: 16px;">
+                      <FontAwesomeIcon icon="arrow-up"
+                                       color="grey"
+                                       size="sm"
+                                       >
+                      </FontAwesomeIcon>
+                      </i>                     
+                  </th>
+                 
+                </tr> -->
+              
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
@@ -278,7 +289,12 @@ export default {
         defaultItem: {
           SSN: '',
         },
-        headersV: [],
+        headersV: [
+          { text: 'SSN', align: 'left', value: 'SSN' },
+          { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
+          { text: 'VALIDATED', value: 'VALIDATED' }
+        ],
+        descending: false,
         href: '',
         ssnList:[],
         numGood: 0,
@@ -395,7 +411,7 @@ export default {
           this.asDate = store.state.adenl
         } 
         this.numValidated = 0
-      },
+      }
     },
     methods: {
       nextPage:function() {
@@ -449,6 +465,12 @@ export default {
         //     console.log(error.response);
         //     this.loaded=true;
         // });
+      },
+      toggleOrder (val) {
+        this.currentSort = val
+        this.descending = !this.descending     
+        var parsed = this.parse(this.myGrid2.data, 'SSN',1)
+        return 0;
       },
       sortByCol(arr){
         return arr.sort((a,b) => {
@@ -877,16 +899,16 @@ export default {
         };
         reader.readAsArrayBuffer(f);
       }
-      this.headersV = [
-        {
-          text: 'SSN',
-          align: 'left',
-          value: 'SSN'
-        },
-        { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
-        ,
-        { text: 'VALIDATED', value: 'VALIDATED' }
-      ]
+      // this.headersV = [
+      //   {
+      //     text: 'SSN',
+      //     align: 'left',
+      //     value: 'SSN'
+      //   },
+      //   { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
+      //   ,
+      //   { text: 'VALIDATED', value: 'VALIDATED' }
+      // ]
       this.showGrid = true
       this.step2 = true
     },

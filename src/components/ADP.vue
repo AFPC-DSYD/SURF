@@ -84,7 +84,7 @@
               <button v-if="numValidated > 0"
                   :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
                   title="Run the ADP SURF"
-                  @click="runTODP"> Run ({{numValidated}}) {{force}} {{typeString}} </button>
+                  @click="runTODP"> Run ({{numValidated}}) {{force}} </button>
             </div>
           </div>
           <div v-show="step3" class="row">
@@ -170,7 +170,7 @@
           </div>
           <div v-show="step3" class="row">
             <div class="col-6">
-              <a v-show="showButton" :href="href" :download="boardLink + ' ' + typeString + '.zip'" ref="surfButton"
+              <a v-show="showButton" :href="href" :download="boardLink + '.zip'" ref="surfButton"
                   class="btn btn-sm btn-info "> TEST </a> 
             </div>
           </div>
@@ -205,8 +205,7 @@ export default {
           Sheets:[''],
           SheetNames: [''],
         },
-        force: 'officer', 
-        type: 'masked',
+        force: 'officer',
         sheet_json: [],
         headers: [],
         selectedCol: -1,
@@ -268,10 +267,7 @@ export default {
         });
       },
       boardLink(){
-        var forceString = 'Enlisted'
-        if (this.force == 'officer')
-          forceString ='Officer'
-        
+        var forceString = 'Officer'
         if (this.board)
           return this.board + ' ' + forceString;
         return 'ADP '  + forceString;
@@ -284,11 +280,6 @@ export default {
       },
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-      typeString:function(){
-        var test = this.type;
-        if (test == 'masked')
-          return 'ADP ' + this.force; 
       },
       currentSheetName: function(){
         return this.workbook.SheetNames[this.currentSheetIndex]
@@ -334,11 +325,7 @@ export default {
       },
       force: function(val){
         if (val =='officer'){
-          this.type = 'masked'
-          this.asDate = store.state.adoff
-        } else {
-          this.type = 'with'
-          this.asDate = store.state.adenl
+          this.asDate = store.state.todps
         } 
         this.numValidated = 0
       },
@@ -364,7 +351,6 @@ export default {
           '_PROGRAM':"/WebApps/SURF/surf",
           'nPage':"runTODP",
           'force':this.force,
-          'type' : this.type,
           'board': this.board,
           'list': list.join(',')
         }
@@ -490,7 +476,6 @@ export default {
             '_PROGRAM':"/WebApps/SURF/surf",
             'nPage':"validate",
             'force':this.force,
-            'type' : this.type,
             'list': list.join(',')
           }
           axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
@@ -526,7 +511,6 @@ export default {
               '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"validate",
               'force':this.force,
-              'type' : this.type,
               'list': splitList.join(','),
               'part': i,
               'max' : nums
@@ -561,7 +545,6 @@ export default {
               '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runTODP2",
               'force':this.force,
-              'type' : this.type,
               'board': this.board,
               'list': list.join(',')
             }
@@ -588,7 +571,7 @@ export default {
                 });
 
                 //console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.zip');
+                FileSaver.saveAs(blob, this.boardLink + '.zip');
                 this.loaded=true;
             }); 
         } else {
@@ -620,7 +603,6 @@ export default {
               '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runTODP",
               'force':this.force,
-              'type' : this.type,
               'board': this.board,
               'list': splitList.join(','),
               'part': i,
@@ -644,7 +626,7 @@ export default {
                 });
 
                 //console.log(blob)
-                FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + ' ' + this.currentParts + ' of ' + this.totalParts + ' .zip');
+                FileSaver.saveAs(blob, this.boardLink + ' ' + this.currentParts + ' of ' + this.totalParts + ' .zip');
 
                 if (this.currentParts >= this.totalParts)
                   this.loaded=true;
@@ -789,7 +771,7 @@ export default {
     },
     downloadTable(){
       var blob = new Blob([d3.csv.format(this.myGrid2.data)], {type: "text/csv;charset=utf-8"});
-      FileSaver.saveAs(blob, this.boardLink + ' ' + this.typeString + '.csv');
+      FileSaver.saveAs(blob, this.boardLink + '.csv');
     },
     /** PARSING and DRAGDROP **/
     handleDrop(e) {
