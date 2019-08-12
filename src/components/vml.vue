@@ -5,13 +5,15 @@
 	    <div v-show="loaded" key="content">
 
 		<div class="row">
-      	<h1 class="col">VML test ADMIN</h1>
+      	<h1 class="col" data-toggle="tooltip" data-placement="top" 
+        title="Vulnerable Movers List (VML)">VML</h1>
 	      <div class="col-4 text-right" style="margin-top:15px;">
 	        Data as of: 
 	        <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
 	      </div>
 	    </div>
-		<h3 clas>Testing out the VML input/output data features</h3>
+		<h3 data-toggle="tooltip" data-placement="top" 
+        title="Vulnerable Movers List (VML)">Testing out the VML input/output data features</h3>
 		<br>
 		<div class="row no-top">
 			<div class="col-6">

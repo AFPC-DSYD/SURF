@@ -4,7 +4,8 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">SURF FLA</h1>
+      <h1 class="col" data-toggle="tooltip" data-placement="top" 
+        title="Single Unit Retrieval Format (SURF)">SURF FLA</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
@@ -29,12 +30,12 @@
                <label v-show="force=='officer'" class="custom-control custom-radio" >
                     <input class="custom-control-input" name="type" type="radio" value="masked" v-model="type">
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Masked </span>
+                    <span class="custom-control-description" data-toggle="tooltip" data-placement="top" title="Data elements Masked">Masked </span>
                 </label>
                 <label v-show="force=='officer'" class="custom-control custom-radio" >
                     <input class="custom-control-input" name="type" type="radio" value="unmasked" v-model="type">
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Unmasked</span>
+                    <span class="custom-control-description" data-toggle="tooltip" data-placement="top" title="Data elements Unmasked">Unmasked</span>
                 </label>
                 <label v-show="force=='enlisted'" class="custom-control custom-radio" >
                     <input class="custom-control-input" name="type" type="radio" value="with" v-model="type">
@@ -48,7 +49,8 @@
                 </label>
         </div>
     </div>
-    <p>This page is used to generate SURFs.</p>
+    <p data-toggle="tooltip" data-placement="top" 
+        title="Single Unit Retrieval Format (SURF)">This page is used to generate SURF(s).</p>
     <br>
     <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
@@ -181,23 +183,6 @@
                 class="elevation-1"
                 min-height="1vh"               
               >
-                  
-                <!-- <tr slot="headers" slot-scope="props">
-                  <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }} -->
-                    
-<!--  hold <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }}
-
-                    <i aria-hidden="true" class="mx-0 px-2" style="font-size: 16px;">
-                      <FontAwesomeIcon icon="arrow-up"
-                                       color="grey"
-                                       size="sm"
-                                       >
-                      </FontAwesomeIcon>
-                      </i>
-                  </th>
-              </tr>  
--->         
-              
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
@@ -209,7 +194,6 @@
                                        size="lg"
                                        >
                       </FontAwesomeIcon>
-                      <!--<v-icon color="teal">edit</v-icon>-->
                     </v-btn>
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                       <FontAwesomeIcon icon="trash"
@@ -217,7 +201,6 @@
                                        size="lg"
                                        >
                       </FontAwesomeIcon>                      
-                      <!--<v-icon color="pink">delete</v-icon>-->
                     </v-btn>
                   </td>
                 </tr>
@@ -459,18 +442,6 @@ export default {
             this.loaded=true;
         });
 
-        // axios.post(axios_url_surf, querystring.stringify(formData)).then(response => {
-        //     this.onReturn(response.data)
-        // }).catch(function (error) {
-        //     console.log(error.response);
-        //     this.loaded=true;
-        // });
-      },
-      toggleOrder (val) {
-        this.currentSort = val
-        this.descending = !this.descending     
-        var parsed = this.parse(this.slicedGrid2.data, 'SSN',1)
-        return 0;
       },
       sortByCol(arr){
         return arr.sort((a,b) => {

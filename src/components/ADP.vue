@@ -4,16 +4,18 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">ADP SURF</h1>
+      <h1 class="col" data-toggle="tooltip" data-placement="top" 
+        title="Airman Development Plan (ADP)">ADP</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
       </div>
     </div>
 
-    <p>This page takes a list of ADPs to build complete ADP Reports from data within TODP_SURF.</p>
+    <p data-toggle="tooltip" data-placement="top" 
+        title="Airman Development Plan (ADP)">This page takes a list of SSNs to build complete ADP Reports from data within TODP_SURF.</p>
     <br>
-    <h2>Step 1: Upload ADP list </h2>
+    <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
         <div class="row">
           <div class="col-md-12">

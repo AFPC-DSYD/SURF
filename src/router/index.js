@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Surf from '@/components/Surf'
-import Surf_CIP from '@/components/Surf-CIP'
+import CIP from '@/components/CIP'
 import AD_Grab from '@/components/AD_Grab'
 import LookUp from '@/components/LookUp'
 import Vml from '@/components/vml'
@@ -17,9 +17,9 @@ export default new Router({
       component: Surf
     },
     {
-      path: '/Surf_CIP',
-      name: 'Surf_CIP',
-      component: Surf_CIP
+      path: '/CIP',
+      name: 'CIP',
+      component: CIP
     },
     {
       path: '/AD_Grab',

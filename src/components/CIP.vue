@@ -4,7 +4,8 @@
     <loader v-show="!loaded" key="loader"></loader>
     <div v-show="loaded" key="content">
     <div class="row">
-      <h1 class="col">SURF CIP</h1>
+      <h1 class="col" data-toggle="tooltip" data-placement="top" 
+        title="Career Intermission Program (CIP)">CIP</h1>
       <div class="col-4 text-right" style="margin-top:15px;">
         Data as of: 
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
@@ -24,7 +25,8 @@
                 </label>
         </div>
     </div>
-    <p>This page is used to generate SURFs.</p>
+    <p data-toggle="tooltip" data-placement="top" 
+        title="Career Intermission Program (CIP)">This page is used to generate CIP(s).</p>
     <br>
     <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
@@ -378,7 +380,7 @@ export default {
 
         var querystring = require('querystring');
         const formData = {
-          '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+          '_PROGRAM':"/WebApps/SURF/surf",
           'nPage':"runSurf",
           'force':this.force,
           'type' : this.type,
@@ -506,7 +508,7 @@ export default {
           this.currentParts = 0;
           var querystring = require('querystring');
           const formData = {
-            '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+            '_PROGRAM':"/WebApps/SURF/surf",
             'nPage':"validate",
             'force':this.force,
             'type' : this.type,
@@ -542,7 +544,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"validate",
               'force':this.force,
               'type' : this.type,
@@ -574,7 +576,7 @@ export default {
           console.log('SINGLE PART')
         var querystring = require('querystring');
             const formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runSurf2",
               'force':this.force,
               'type' : this.type,
@@ -633,7 +635,7 @@ export default {
           console.log('splitList Length: ' + splitList.length)
           var querystring = require('querystring');
             var formData = {
-              '_PROGRAM':"/REN - Dashboard Home V1/makeHTML",
+              '_PROGRAM':"/WebApps/SURF/surf",
               'nPage':"runSurf",
               'force':this.force,
               'type' : this.type,
