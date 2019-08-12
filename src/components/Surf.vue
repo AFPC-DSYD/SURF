@@ -175,28 +175,28 @@
               </v-dialog>
               <v-data-table
                 :headers="headersV"
-                :items="slicedGrid2"
-                :sort-by.sync="currentSort"
-                :sort-desc.sync="descending"
+                :items="slicedGrid2"                
+                sort-icon="arrow_upward"
                 hide-actions
                 class="elevation-1"
                 min-height="1vh"               
               >
-<!--                 <tr slot="headers" slot-scope="props">
+                  
+                <!-- <tr slot="headers" slot-scope="props">
                   <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }} -->
                     
 <!--  hold <th v-for="col in headersV" role="columnheader" scope="col" :aria-label="[ !descending ? col.value+' Sorted ascending. Activate to sort descending.' : col.value+' Sorted descending. Activate to remove sorting.']" :aria-sort="[ !descending ? 'ascending' : 'descending']" tabindex="0" :class="['column sortable text-xs-left', descending ? 'desc' : 'asc', col.value === currentSort ? 'active':'']" @click="toggleOrder(col.value)"> {{ col.text }}
--->
-<!--                     <i aria-hidden="true" class="mx-0 px-2" style="font-size: 16px;">
+
+                    <i aria-hidden="true" class="mx-0 px-2" style="font-size: 16px;">
                       <FontAwesomeIcon icon="arrow-up"
                                        color="grey"
                                        size="sm"
                                        >
                       </FontAwesomeIcon>
-                      </i>                     
+                      </i>
                   </th>
-                 
-                </tr> -->
+              </tr>  
+-->         
               
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}</td>
@@ -469,7 +469,7 @@ export default {
       toggleOrder (val) {
         this.currentSort = val
         this.descending = !this.descending     
-        var parsed = this.parse(this.myGrid2.data, 'SSN',1)
+        var parsed = this.parse(this.slicedGrid2.data, 'SSN',1)
         return 0;
       },
       sortByCol(arr){

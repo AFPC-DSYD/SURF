@@ -135,12 +135,6 @@
               >
                 <tr slot="items" slot-scope="props">
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN }}
-<!--                     <v-btn icon class="mx-0" @click="">
-                      <FontAwesomeIcon icon="arrow-up"
-                                       size="sm"
-                                       >
-                      </FontAwesomeIcon>
-                    </v-btn> -->                  
                   </td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.VALIDATED }}</td>
