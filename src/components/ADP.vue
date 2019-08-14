@@ -72,7 +72,7 @@
               <h2 >Step 3:Confirm SSNs</h2>
             </div>
             <div class="col-3">
-              <input  type="text"  class="form-control" v-model="board" placeholder="Board Name">
+              <input  type="text" class="form-control" v-model="board" placeholder="Board Name">
             </div>
           </div>
           <div v-show="step3" class="row">
@@ -85,7 +85,7 @@
                   @click="validate"> Validate List </button>
               <button v-if="numValidated > 0"
                   :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
-                  title="Run the ADP SURF"
+                  title="Run the ADP"
                   @click="runTODP"> Run ({{numValidated}}) {{force}} </button>
             </div>
           </div>
@@ -778,7 +778,7 @@ export default {
       for (i = 0, f = files[i]; i != files.length; ++i) {
         var reader = new FileReader(),
             name = f.name;
-        console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
+        //console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
         reader.onload = (e)=>{
             var results, 
                 data = e.target.result, 
