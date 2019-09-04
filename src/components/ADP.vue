@@ -277,6 +277,9 @@ export default {
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
+
+
+
       currentSheetName: function(){
         return this.workbook.SheetNames[this.currentSheetIndex]
       },
@@ -505,7 +508,7 @@ export default {
           var querystring = require('querystring');
             var formData = {
               '_PROGRAM':"/WebApps/SURF/surf",
-              'nPage':"validate",
+              'nPage':"validateAD",
               'force':this.force,
               'list': splitList.join(','),
               'part': i,
@@ -748,18 +751,16 @@ export default {
         return headers;
     },
     fixdata(data) {
-      var originData = "", l = 0, w = 10240;
-      for(; l<data.byteLength/w; ++l) {
-        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
-        originData+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-        return originData;
-      }
+      var o = "", l = 0, w = 10240;
+      for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+      o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+      return o;
     },
     workbook_to_json(workbook) {
       var result = {};
       workbook.SheetNames.forEach(function(sheetName) {
         var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        if(roa.length ^""){
+        if(roa.length > 0){
           result[sheetName] = roa;
         }
       });
