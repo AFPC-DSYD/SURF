@@ -1,8 +1,8 @@
 #!/bin/bash
 #begin by resetting surf_fla working directory to last commit state
-git -C ../SURF_FLA reset --hard; 
+#git -C ../SURF_FLA reset --hard; 
 #git pull to sync with remote to avoid collisions
-git -C ../SURF_FLA pull origin master;
+#git -C ../SURF_FLA pull origin master;
 
 #build for fla (need fla endpoints)
 yarn run build;

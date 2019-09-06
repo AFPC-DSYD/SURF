@@ -11,9 +11,19 @@
         <span style="font-weight:bold;color:#4d8bf9"> {{ asDate }} </span>
       </div>
     </div>
-
-    <p data-toggle="tooltip" data-placement="top" 
-        title="Airman Development Plan (ADP)">This page takes a list of SSNs to build complete ADP Reports from data within TODP_SURF.</p>
+    <div class="row">
+      <div id="radioSelect" class="col inline-form-group">
+               <label class="custom-control custom-radio" >
+                    <input class="custom-control-input" name="force" type="radio" value="officer" v-model="force">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Officer</span>
+                </label>
+      </div>
+    </div>
+    <div class="row" style="margin-top:28px;"></div>
+    <br>
+    <h5 data-toggle="tooltip" data-placement="top" 
+        title="Airman Development Plan (ADP)">This page takes a list of SSNs to build Officer ADP Reports from data within TODP_SURF.</h5>
     <br>
     <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
@@ -51,9 +61,7 @@
               </button>
             </div>
           </div>
-          <!-- <div class="row">
-            <div id="myGrid"></div>
-          </div> -->
+
           <div v-show="showGrid" class="row">
             <v-data-table
                 :headers="headersV1"
@@ -75,31 +83,17 @@
               <input  type="text" class="form-control" v-model="board" placeholder="Board Name">
             </div>
           </div>
+
           <div v-show="step3" class="row">
-            <div class="col-12">
-              
-              <button class="btn btn-sm btn-info" @click="dialog = true">Add SSN</button>
+            <div class="col-12">              
+              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }}</h6>
+              <button class="btn btn-sm btn-info" @click="prevPage" title="Previous Page"><v-icon color="white">arrow_left</v-icon> Previous</button>
+              <button class="btn btn-sm btn-info" @click="nextPage" title="Next Page">Next <v-icon color="white">arrow_right</v-icon></button>
+              <button class="btn btn-sm btn-info" @click="downloadTable" title="Save this table"><v-icon class="sm" color="white">save_alt</v-icon> &nbsp; Save</button>
+              <button class="btn btn-sm btn-info" @click="dialog = true" title="Add an SSN"><v-icon class="sm" color="white" >add</v-icon> &nbsp; Add </button>
               <button class="btn btn-sm btn-danger "> Bad: {{numBad}} </button>
-              <button :class="['btn','btn-sm','btn-amber']" data-toggle="tooltip" data-placement="top" 
-                  title="Validate with our records"
-                  @click="validate"> Validate List </button>
-              <button v-if="numValidated > 0"
-                  :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
-                  title="Run the ADP"
-                  @click="runTODP"> Run ({{numValidated}}) {{force}} </button>
-            </div>
-          </div>
-          <div v-show="step3" class="row">
-            <div class="col-7">
-              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }} 
-                <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
-                <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
-              </h6>
-            </div>
-            <div class="col-5">
-              <h6  style="margin-top:12px;margin-left:20px"> &nbsp; 
-              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
-              </h6>
+              <button :class="['btn','btn-sm','btn-amber']" data-toggle="tooltip" data-placement="top" title="Validate SSN(s)" @click="validate"> <v-icon class="sm" color="white">check</v-icon> &nbsp; Validate </button>
+              <button v-if="numValidated > 0" :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" title="Run ADP" @click="runTODP"><v-icon class="sm" color="white">directions_run</v-icon> &nbsp;  Run ({{numValidated}}) {{force}} </button> 
             </div>
           </div>
 
@@ -141,14 +135,14 @@
                   <td @click="" class="my-2 text-xs-left">{{ props.item.SSN_FORMAT }}</td>
                   <td @click="" class="my-2 text-xs-left">{{ props.item.VALIDATED }}</td>
                   <td @click="" class="justify-center layout px-0">
-                    <v-btn icon class="mx-0" @click="editItem(props.item)">
+                    <v-btn icon class="mx-0" @click="editItem(props.item)" title="Edit">
                       <FontAwesomeIcon icon="edit"
                                        color="teal"
                                        size="lg"
                                        >
                       </FontAwesomeIcon>
                     </v-btn>
-                    <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+                    <v-btn icon class="mx-0" @click="deleteItem(props.item)" title="Delete">
                       <FontAwesomeIcon icon="trash"
                                        color="#ff4f5e"
                                        size="lg"

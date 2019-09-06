@@ -24,7 +24,10 @@
                 </label>
         </div>
     </div>
-    <p>This page is used to append Columns from AD-Officer and AD-Enlisted datasets.</p>
+    <div class="row" style="margin-top:28px;"></div>
+    <br>   
+    <h5 data-toggle="tooltip" data-placement="top" 
+        title="Build a report with data elements from AD Officer or AD Enlisted.">This page is used to append variables from AD-Officer or AD-Enlisted to a list of SSNs.</h5>
     <br>
     <h2>Step 1: Upload SSN list </h2>
     <div class="container-responsive">
@@ -62,9 +65,7 @@
               </button>
             </div>
           </div>
-          <!-- <div class="row">
-            <div id="myGrid"></div>
-          </div> -->
+  
           <div v-show="showGrid" class="row">
             <v-data-table
                 :headers="headersV1"
@@ -82,44 +83,28 @@
             <div style="margin-left:0;padding-left:0" class="col-4">
               <h2 >Step 3:Confirm SSNs</h2>
             </div>
-            <!-- <div class="col-3">
-              <input  type="text"  class="form-control" v-model="board" placeholder="Board Name">
-            </div> -->
             <div class="col-5">
               <input  type="text"  class="form-control" v-model="dins" placeholder="DINS Requested (Columns separated by spaces)">
             </div>
           </div>
+
           <div v-show="validatedDins > ''" class="row">
             <h4 style='color:green'> Validated Dins: {{ validatedDins }} </h4>
           </div>
           <div v-show="badDins > ''" class="row">
             <h4 style='color:red'> BAD Dins: {{ badDins }} </h4>
           </div>
+
           <div v-show="step3" class="row">
-            <div class="col-12">
-              
-              <button class="btn btn-sm btn-info" @click="dialog = true">Add SSN</button>
+            <div class="col-12">              
+              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }}</h6>
+              <button class="btn btn-sm btn-info" @click="prevPage" title="Previous Page"><v-icon color="white">arrow_left</v-icon> Previous</button>
+              <button class="btn btn-sm btn-info" @click="nextPage" title="Next Page">Next <v-icon color="white">arrow_right</v-icon></button>
+              <button class="btn btn-sm btn-info" @click="downloadTable" title="Save this table"><v-icon class="sm" color="white">save_alt</v-icon> &nbsp; Save</button>
+              <button class="btn btn-sm btn-info" @click="dialog = true" title="Add an SSN"><v-icon class="sm" color="white" >add</v-icon> &nbsp; Add </button>
               <button class="btn btn-sm btn-danger "> Bad: {{numBad}} </button>
-              <button :class="['btn','btn-sm','btn-amber']" data-toggle="tooltip" data-placement="top" 
-                  title="Validate with our records"
-                  @click="validate"> Validate List </button>
-              <button v-if="numValidated > 0"
-                  :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" 
-                  title="Make sure the currect type of SURF is requested"
-                  @click="runSurf"> Merge ({{numValidated}}) with AD {{ force }} File </button>
-            </div>
-          </div>
-          <div v-show="step3" class="row">
-            <div class="col-7">
-              <h6 style="margin-top:12px;margin-left:20px">Showing rows {{ (currentPageGrid2-1) * pageSizeGrid2 + 1 }} - {{ (currentPageGrid2) * pageSizeGrid2 }} 
-                <button class="btn btn-sm btn-info" @click="prevPage">&larr; Previous Page</button>
-                <button class="btn btn-sm btn-info" @click="nextPage">Next Page &rarr;</button>
-              </h6>
-            </div>
-            <div class="col-5">
-              <h6  style="margin-top:12px;margin-left:20px"> &nbsp; 
-              <button class="btn btn-sm btn-success" @click="downloadTable">DOWNLOAD Current Table</button>
-              </h6>
+              <button :class="['btn','btn-sm','btn-amber']" data-toggle="tooltip" data-placement="top" title="Validate SSN(s)" @click="validate"> <v-icon class="sm" color="white">check</v-icon> &nbsp; Validate </button>
+              <button v-if="numValidated > 0" :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" title="Run SURF request" @click="runSurf"><v-icon class="sm" color="white">directions_run</v-icon> &nbsp; Merge ({{numValidated}}) with AD {{ force }} File </button>  
             </div>
           </div>
       
@@ -161,14 +146,14 @@
                  <!--  <td @click="" class="my-2 text-xs-right">{{ props.item.SSN_FORMAT }}</td>
                   <td @click="" class="my-2 text-xs-right">{{ props.item.VALIDATED }}</td> -->
                   <td v-if="!step4" @click="" class="justify-center layout px-0">
-                    <v-btn icon class="mx-0" @click="editItem(props.item)">
+                    <v-btn icon class="mx-0" @click="editItem(props.item)" title="Edit">
                       <FontAwesomeIcon icon="edit"
                                        color="teal"
                                        size="lg"
                                        >
                       </FontAwesomeIcon>
                     </v-btn>
-                    <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+                    <v-btn icon class="mx-0" @click="deleteItem(props.item)" title="Delete">
                       <FontAwesomeIcon icon="trash"
                                        color="#ff4f5e"
                                        size="lg"
@@ -545,7 +530,7 @@ export default {
           var querystring = require('querystring');
           const formData = {
             '_PROGRAM':"/WebApps/SURF/surf",
-            'nPage':"validateAD",
+            'nPage':"validate",
             'dins' : this.dins,
             'force':this.force,
             'type' : this.type,
