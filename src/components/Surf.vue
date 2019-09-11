@@ -576,7 +576,7 @@ export default {
         var partLen = 200;
         this.sentWarning = true;
         var list = []
-        console.log(this.myGrid2.data.length)
+        //console.log(this.myGrid2.data.length)
         var getList = this.parse(this.myGrid2.data, 'SSN', 1)
         getList.forEach((d)=>{
           if (d.SSN_FORMAT)
@@ -824,7 +824,7 @@ export default {
       for (i = 0, f = files[i]; i != files.length; ++i) {
         var reader = new FileReader(),
             name = f.name;
-        console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
+        //console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
         
         reader.onload = (e)=>{
           var results, 
