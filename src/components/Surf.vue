@@ -99,11 +99,7 @@
               >
               <tr slot="headers" slot-scope="props">
                 <th v-for="col in headersV1" > {{ col.text }}
-<!--                       <FontAwesomeIcon icon="arrow-up"
-                                       color="grey"
-                                       size="md"
-                                       >
-                      </FontAwesomeIcon>   -->                 
+                
                 </th>
               </tr>
               <tr slot="items" slot-scope="props">
@@ -131,7 +127,7 @@
               <button class="btn btn-sm btn-info" @click="dialog = true" title="Add an SSN"><v-icon class="sm" color="white" >add</v-icon> &nbsp; Add </button>
               <button class="btn btn-sm btn-danger "> Bad: {{numBad}} </button>
               <button :class="['btn','btn-sm','btn-amber']" data-toggle="tooltip" data-placement="top" title="Validate SSN(s)" @click="validate"> <v-icon class="sm" color="white">check</v-icon> &nbsp; Validate </button>
-              <button v-if="numValidated > 0" :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" title="Run SURF request" @click="runSurf"><v-icon class="sm" color="white">directions_run</v-icon> &nbsp;  Run ({{numValidated}}) {{force}} {{typeString}} </button>  
+              <button v-if="numValidated > 0" :class="['btn','btn-sm','btn-success']" data-toggle="tooltip" data-placement="top" title="Run SURF request" @click="runSurf"><v-icon class="sm" color="white">directions_run</v-icon> &nbsp;  Run ({{numValidated}}) {{force}} {{typeString}} </button>     
             </div>
           </div>
 
@@ -161,8 +157,7 @@
               </v-dialog>
               <v-data-table
                 :headers="headersV"
-                :items="slicedGrid2"                
-                sort-icon="arrow_upward"
+                :items="slicedGrid2"
                 hide-actions
                 class="elevation-1"
                 min-height="1vh"               
@@ -256,12 +251,7 @@ export default {
         defaultItem: {
           SSN: '',
         },
-        headersV: [
-          { text: 'SSN', align: 'left', value: 'SSN' },
-          { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
-          { text: 'VALIDATED', value: 'VALIDATED' }
-        ],
-        descending: false,
+        headersV: [],
         href: '',
         ssnList:[],
         numGood: 0,
@@ -282,10 +272,6 @@ export default {
       this.asDate = store.state.adoff;
       this.zip = new JSZip();
       this.folder = this.zip.folder('folder')
-      // this.myGrid = canvasDatagrid();
-      // document.getElementById('myGrid').appendChild(this.myGrid)
-      // this.myGrid2 = canvasDatagrid();
-      // document.getElementById('myGrid2').appendChild(this.myGrid2)
     },
     components:{
       loader,
@@ -378,7 +364,7 @@ export default {
           this.asDate = store.state.adenl
         } 
         this.numValidated = 0
-      }
+      },
     },
     methods: {
       nextPage:function() {
@@ -794,10 +780,9 @@ export default {
     },
     fixdata(data) {
       var o = "", l = 0, w = 10240;
-      for(; l<data.byteLength/w; ++l) 
-        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w,l*w+w)));
-        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-        return o;      
+      for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+      o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+      return o;
     },
     workbook_to_json(workbook) {
       var result = {};
@@ -820,18 +805,17 @@ export default {
       this.currentSort = 'SSN_FORMAT'
       e.stopPropagation()
       e.preventDefault()
+
       var files = e.dataTransfer.files, i, f;
       for (i = 0, f = files[i]; i != files.length; ++i) {
         var reader = new FileReader(),
             name = f.name;
-        //console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet
-        
+        //console.log("FILE: "+name+" DROPPED"); //filename of the spreadsheet       
         reader.onload = (e)=>{
           var results, 
               data = e.target.result,
               fixedData = this.fixdata(data);
-          /* cant use readFile, since it is only used in SERVER environments*/
-          /* use XLSX.read to read array buffer and convert to base64 */  
+          // use XLSX.read to read array buffer and convert to base64
           this.workbook=XLSX.read(btoa(fixedData), {type: 'base64'});
           this.sheet_json = []
           this.headers = []
@@ -843,27 +827,22 @@ export default {
               this.sheet_json.push(page)
               this.headers.push(this.get_header_row(sheet))
             }
-          // this.myGrid = canvasDatagrid();
+
           var div = document.getElementById('myGrid');
           this.myGrid.data = this.sheet_json[this.currentSheetIndex];
-          
-          // while(div.firstChild){
-          //     div.removeChild(div.firstChild);
-          // }
-          // document.getElementById('myGrid').appendChild(this.myGrid)
         };
         reader.readAsArrayBuffer(f);
       }
-      // this.headersV = [
-      //   {
-      //     text: 'SSN',
-      //     align: 'left',
-      //     value: 'SSN'
-      //   },
-      //   { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
-      //   ,
-      //   { text: 'VALIDATED', value: 'VALIDATED' }
-      // ]
+      this.headersV = [
+        {
+          text: 'SSN',
+          align: 'left',
+          value: 'SSN'
+        },
+        { text: 'SSN_FORMAT', value: 'SSN_FORMAT' },
+        ,
+        { text: 'VALIDATED', value: 'VALIDATED' }
+      ]
       this.showGrid = true
       this.step2 = true
     },
@@ -889,9 +868,7 @@ export default {
 }
 </script>
  
-<!--<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">-->
 <style scoped>
-
 #drop{
 border: 2px dashed #bbb;
     -moz-border-radius: 5px;
