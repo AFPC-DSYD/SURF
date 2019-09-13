@@ -26,7 +26,7 @@ module.exports = merge(baseWebpackConfig, {
       'check_portal': '"SANE"',
       //'axios_url': '"http://localhost:5005/api"',
       'axios_url_surf': '"http://localhost:5005/api/surf"',
-      'axios_url_vml': '"http://localhost:5005/api/vml"',
+      //'axios_url_vml': '"http://localhost:5005/api/vml"',
       'axios_ad_grab_validate': '"http://localhost:5005/api/ad_grab"',
       'axios_ad_grab_final': '"http://localhost:5005/api/ad_grab_final"',
       'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',

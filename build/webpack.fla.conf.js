@@ -35,9 +35,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({      
       //FLA BUILD - THIS MUST be run for PROD DEPLOYMENT
       //'axios_url': '"https://stars.afpc.randolph.af.mil/"',
-      'check_portal': '"INSANE"',
+      // changed to SANE for portal check
+      'check_portal': '"SANE"',
       'axios_url_surf': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      //'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'axios_ad_grab_validate': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'axios_ad_grab_final': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',  

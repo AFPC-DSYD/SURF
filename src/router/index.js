@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Surf from '@/components/Surf'
-import CIP from '@/components/CIP'
+//import CIP from '@/components/CIP'
 import AD_Grab from '@/components/AD_Grab'
 import LookUp from '@/components/LookUp'
-import Vml from '@/components/vml'
+//import Vml from '@/components/vml'
 import ADP from '@/components/ADP'
 
 Vue.use(Router)
@@ -16,11 +16,11 @@ export default new Router({
       name: 'Surf',
       component: Surf
     },
-    {
-      path: '/CIP',
-      name: 'CIP',
-      component: CIP
-    },
+    // {
+    //   path: '/CIP',
+    //   name: 'CIP',
+    //   component: CIP
+    // },
     {
       path: '/AD_Grab',
       name: 'AD_Grab',
@@ -31,11 +31,11 @@ export default new Router({
       name: 'LookUp',
       component: LookUp
     },
-    {
-      path: '/vml',
-      name: 'vml',
-      component: Vml
-    },
+    // {
+    //   path: '/vml',
+    //   name: 'vml',
+    //   component: Vml
+    // },
     {
       path: '/ADP',
       name: 'ADP',
