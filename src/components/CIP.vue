@@ -549,7 +549,7 @@ export default {
       },
       runSurf(){
         this.loaded=false;
-        var partLen = 200;
+        var partLen = 500;
         this.sentWarning = true;
         var list = []
         var getList = this.parse(this.ssnList, 'SSN', 1)

@@ -559,7 +559,7 @@ export default {
       },
       runSurf(){
         this.loaded=false;
-        var partLen = 200;
+        var partLen = 500;
         this.sentWarning = true;
         var list = []
         //console.log(this.myGrid2.data.length)

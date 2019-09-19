@@ -37,7 +37,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       //PROD BUILD - this MUST be run for PROD DEPLOYMENT
       'check_portal': '"INSANE"',
       'axios_url_surf': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
-      'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
+      //'axios_url_vml': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'axios_ad_grab_validate': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'axios_ad_grab_final': '"https://stars.afpc.randolph.af.mil/SASStoredProcess/do"',
       'AXIOS_PROGRAM':'"/WebApps/SURF/surf"',   
